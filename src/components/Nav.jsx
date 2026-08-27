@@ -9,21 +9,30 @@ const Nav = (props) => {
     }
 
     return (
-        <nav>
-            <Link className="nav-brand" to="/">App Name</Link>
-            { props.user ? (
-                <ul>
-                    <li>Welcome, {props.user.username}!</li>
-                    <li>
-                        <Link to="/">Community</Link>
-                    </li>
-                    <li>
-                    <Link to='/listings'>Marketplace</Link>
-                </li>
-                    <li>
-                        <Link to="/" onClick={handleSignOut}>Sign Out</Link>
-                    </li>
-                </ul>
+        <nav className="navbar">
+            <Link className="nav-brand" to="/">Brickmates</Link>
+
+            {props.user ? (
+                <>
+                    <ul className="nav-links">
+                        <li>
+                            <Link to="/">Community</Link>
+                        </li>
+                        <li>
+                            <Link to="/listings">Marketplace</Link>
+                        </li>
+                        <li>
+                            <Link to="/">Build Together</Link>
+                        </li>
+                    </ul>
+
+                    <div className="nav-actions">
+
+                        <button className="user-icon" onClick={handleSignOut}>
+                            Signout
+                        </button>
+                    </div>
+                </>
             ) : (
             <ul>
                 <li>
