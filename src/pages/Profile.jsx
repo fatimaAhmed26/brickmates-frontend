@@ -37,131 +37,222 @@ const Profile = ({ user }) => {
     const isFollowing = profile.followerIds && profile.followerIds.includes(user?._id)
 
     return (
-        <div className="profile">
-            <header className="profile-header">
-                <img
-                    className="profile-avatar"
-                    src={profile.avatar || 'https://placehold.co/100x100?text=%20'} width='50px'
-                    alt={profile.username}
-                />
-                <div className="profile-info">
-                    <h1>{profile.username}</h1>
-                    {profile.location && <p className="profile-location">{profile.location}</p>}
-                    {profile.bio && <p className="profile-bio">{profile.bio}</p>}
-                    
-                </div>
-                {isOwnProfile ? (
-                    <Link to="/profile/edit">
-                        <button className="btn-secondary">Edit Profile</button>
-                    </Link>
-                ) : (
-                    <button className="btn-primary" onClick={handleFollow}>
-                        {isFollowing ? 'Unfollow' : 'Follow'}
-                    </button>
-                )}
-            </header>
+    <div className="profile">
+        <header className="profile-header">
+            <img
+                className="profile-avatar"
+                src={profile.avatar || 'https://placehold.co/150x150?text=%20'}
+                alt={profile.username}
+            />
 
-            <div className="profile-stats">
-                <div>
-                    <strong>{profile.collectionSetIds?.length || 0}</strong>
-                    <span>Sets owned</span>
+            <div className="profile-info">
+                <h1>{profile.username}</h1>
+
+                {profile.location && (
+                    <p className="profile-location">
+                        {profile.location}
+                    </p>
+                )}
+
+                {profile.bio && (
+                    <p className="profile-bio">
+                        {profile.bio}
+                    </p>
+                )}
+
+                <div className="profile-actions">
+                    {isOwnProfile ? (
+                        <Link to="/profile/edit">
+                            <button className="btn-secondary">
+                                Edit Profile
+                            </button>
+                        </Link>
+                    ) : (
+                        <button
+                            className="btn-primary"
+                            onClick={handleFollow}
+                        >
+                            {isFollowing ? 'Unfollow' : 'Follow'}
+                        </button>
+                    )}
+
+                    {!isOwnProfile && (
+                        <button className="btn-message">
+                             Message
+                        </button>
+                    )}
                 </div>
+            </div>
+        </header>
+
+        <div className="profile-stats">
+            <div className="stat-card stat-blue">
+                <div className="stat-icon">◇</div>
                 <div>
-                    <strong>{profile.followerIds?.length || 0}</strong>
-                    <span>Followers</span>
-                </div>
-                <div>
-                    <strong>{profile.followingIds?.length || 0}</strong>
-                    <span>Following</span>
-                </div>
-                <div>
-                    <strong>{listings.length}</strong>
-                    <span>For sale</span>
+                    <span>Sets Owned</span>
+                    <strong>
+                        {profile.collectionSetIds?.length || 0}
+                    </strong>
                 </div>
             </div>
 
-            <nav className="profile-tabs">
-                <button
-                    className={activeTab === 'builds' ? 'active' : ''}
-                    onClick={() => setActiveTab('builds')}>
-                    Builds
-                </button>
-                <button
-                    className={activeTab === 'collection' ? 'active' : ''}
-                    onClick={() => setActiveTab('collection')}>
-                    Collection
-                </button>
-                <button
-                    className={activeTab === 'forsale' ? 'active' : ''}
-                    onClick={() => setActiveTab('forsale')}>
-                    For Sale
-                </button>
-            </nav>
+            <div className="stat-card stat-yellow">
+                <div className="stat-icon">▣</div>
+                <div>
+                    <span>Est. Value</span>
+                    <strong>BHD 0</strong>
+                </div>
+            </div>
 
-            {activeTab === 'builds' && (
-                <section className="profile-section">
-                    {builds.length === 0 ? (
-                        <p className="empty-state">No builds posted yet.</p>
-                    ) : (
-                        <div className="builds-grid">
-                            {builds.map((build) => (
-                                <div className="build-thumb" key={build._id}>
-                                    {build.image?.url ? (
-                                        <img src={build.image.url} alt={build.caption} />
-                                    ) : (
-                                        <div className="placeholder-img">No image</div>
-                                    )}
-                                </div>
-                            ))}
-                        </div>
-                    )}
-                </section>
-            )}
-
-            {activeTab === 'collection' && (
-                <section className="profile-section">
-                    {!profile.collectionSetIds || profile.collectionSetIds.length === 0 ? (
-                        <p className="empty-state">No sets in collection yet.</p>
-                    ) : (
-                        <ul className="collection-list">
-                            {profile.collectionSetIds.map((setNum) => (
-                                <li key={setNum}>{setNum}</li>
-                            ))}
-                        </ul>
-                    )}
-                </section>
-            )}
-
-            {activeTab === 'forsale' && (
-                <section className="profile-section">
-                    {listings.length === 0 ? (
-                        <p className="empty-state">No listings yet.</p>
-                    ) : (
-                        <div className="listings-grid">
-                            {listings.map((listing) => (
-                                <Link to={`/listings/${listing._id}`} key={listing._id}>
-                                    <div className="listing-card">
-                                        <div className="listing-image-wrap">
-                                            {listing.photos && listing.photos.length > 0 ? (
-                                                <img src={listing.photos[0].url} alt={listing.setName} />
-                                            ) : (
-                                                <div className="placeholder-img">No image</div>
-                                            )}
-                                            <span className="listing-badge">{listing.condition}</span>
-                                        </div>
-                                        <div className="listing-body">
-                                            <h3 className="listing-title">{listing.setName || listing.setNum}</h3>
-                                            <p className="listing-price">BHD {listing.price}</p>
-                                        </div>
-                                    </div>
-                                </Link>
-                            ))}
-                        </div>
-                    )}
-                </section>
-            )}
+            <div className="stat-card stat-gray">
+                <div className="stat-icon">⚒</div>
+                <div>
+                    <span>Builds Shared</span>
+                    <strong>{builds.length}</strong>
+                </div>
+            </div>
         </div>
-    )
+
+        <nav className="profile-tabs">
+            <button
+                className={activeTab === 'collection' ? 'active' : ''}
+                onClick={() => setActiveTab('collection')}
+            >
+                Collection
+            </button>
+
+            <button
+                className={activeTab === 'builds' ? 'active' : ''}
+                onClick={() => setActiveTab('builds')}
+            >
+                Builds
+            </button>
+
+            <button
+                className={activeTab === 'forsale' ? 'active' : ''}
+                onClick={() => setActiveTab('forsale')}
+            >
+                For Sale
+            </button>
+        </nav>
+
+        {activeTab === 'collection' && (
+            <section className="profile-section">
+                {!profile.collectionSetIds ||
+                profile.collectionSetIds.length === 0 ? (
+                    <p className="empty-state">
+                        No sets in collection yet.
+                    </p>
+                ) : (
+                    <div className="collection-grid">
+                        {profile.collectionSetIds.map((setNum) => (
+                            <div
+                                className="collection-card"
+                                key={setNum}
+                            >
+                                <div className="collection-image">
+                                    <span className="collection-badge">
+                                        COLLECTOR
+                                    </span>
+
+                                    <div className="set-placeholder">
+                                        LEGO
+                                    </div>
+                                </div>
+
+                                <div className="collection-body">
+                                    <h3>Set {setNum}</h3>
+                                    <p>LEGO Collection</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </section>
+        )}
+
+        {activeTab === 'builds' && (
+            <section className="profile-section">
+                {builds.length === 0 ? (
+                    <p className="empty-state">
+                        No builds posted yet.
+                    </p>
+                ) : (
+                    <div className="builds-grid">
+                        {builds.map((build) => (
+                            <div
+                                className="build-thumb"
+                                key={build._id}
+                            >
+                                {build.image?.url ? (
+                                    <img
+                                        src={build.image.url}
+                                        alt={build.caption}
+                                    />
+                                ) : (
+                                    <div className="placeholder-img">
+                                        No image
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </section>
+        )}
+
+        {activeTab === 'forsale' && (
+            <section className="profile-section">
+                {listings.length === 0 ? (
+                    <p className="empty-state">
+                        No listings yet.
+                    </p>
+                ) : (
+                    <div className="listings-grid">
+                        {listings.map((listing) => (
+                            <Link
+                                to={`/listings/${listing._id}`}
+                                key={listing._id}
+                            >
+                                <div className="listing-card">
+                                    <div className="listing-image-wrap">
+                                        {listing.photos &&
+                                        listing.photos.length > 0 ? (
+                                            <img
+                                                src={listing.photos[0].url}
+                                                alt={listing.setName}
+                                            />
+                                        ) : (
+                                            <div className="placeholder-img">
+                                                No image
+                                            </div>
+                                        )}
+
+                                        <span className="listing-badge">
+                                            {listing.condition}
+                                        </span>
+                                    </div>
+
+                                    <div className="listing-body">
+                                        <h3 className="listing-title">
+                                            {listing.setName ||
+                                                listing.setNum}
+                                        </h3>
+
+                                        <p className="listing-price">
+                                            BHD {listing.price}
+                                        </p>
+                                    </div>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                )}
+            </section>
+        )}
+    </div>
+)
+
 }
 
 export default Profile
