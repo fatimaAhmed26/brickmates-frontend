@@ -21,7 +21,7 @@ const Dashboard = (props) => {
                 <h2>View All the Users</h2>
             </header>
             {allUsers.map((user) => (
-                <div className="card">
+                <div className="card" key={user._id}>
                     <header>
                         <h1>
                         {user.username}
