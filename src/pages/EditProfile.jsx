@@ -6,6 +6,7 @@ const EditProfile = ({ user, setUser }) => {
     const navigate = useNavigate()
 
     const [formData, setFormData] = useState({
+        username: '',
         bio: '',
         location: '',
         favoriteTheme: '',
@@ -18,6 +19,7 @@ const EditProfile = ({ user, setUser }) => {
         const fetchProfile = async () => {
             const profile = await show(user._id)
             setFormData({
+                username: profile.username || '',
                 bio: profile.bio || '',
                 location: profile.location || '',
                 favoriteTheme: profile.favoriteTheme || '',
@@ -39,6 +41,7 @@ const EditProfile = ({ user, setUser }) => {
         event.preventDefault()
         try {
             const profileFormData = new FormData()
+            profileFormData.append('username', formData.username)
             profileFormData.append('bio', formData.bio)
             profileFormData.append('location', formData.location)
             profileFormData.append('favoriteTheme', formData.favoriteTheme)
