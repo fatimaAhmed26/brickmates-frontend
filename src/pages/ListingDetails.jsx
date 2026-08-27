@@ -28,7 +28,11 @@ const ListingDetail = ({ user }) => {
         <section className="card">
             <header>
                 <h1>{listing.setName || listing.setNum}</h1>
-                <p>Sold by {listing.owner?.username}</p>
+                <p>Sold by{' '}
+                    <Link to={`/profile/${listing.owner?._id}`}>
+                     {listing.owner?.username}
+                    </Link>
+                    </p>
             </header>
 
             {listing.photos && listing.photos.length > 0 && (

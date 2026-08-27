@@ -10,6 +10,7 @@ import ListingForm from "./pages/ListingForm"
 import Marketplace from "./pages/Marketplace"
 import ListingDetail from "./pages/ListingDetails"
 import EditListingForm from "./pages/EditListingForm"
+import Profile from "./pages/Profile"
 const getUserFromToken = () => {
   const token = localStorage.getItem('token')
 
@@ -30,6 +31,7 @@ const App = () => {
         <Route path='/' element={user ? <Dashboard user={user} /> : <Landing />} />
         <Route path='/sign-up' element={<SignUpForm setUser={setUser} />} />
         <Route path='/sign-in' element={<SignInForm setUser={setUser} />} />
+        <Route path='/profile/:userId' element={user ? <Profile user={user} /> : <Landing />} />
         <Route path='/listings/new' element={user ? <ListingForm /> : <Landing />} />
         <Route path='/listings' element={user ? <Marketplace /> : <Landing />} />
         <Route path='/listings/:listingId' element={user ? <ListingDetail user={user} /> : <Landing />} />
