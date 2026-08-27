@@ -41,16 +41,14 @@ const Profile = ({ user }) => {
             <header className="profile-header">
                 <img
                     className="profile-avatar"
-                    src={profile.avatarUrl || 'https://placehold.co/100x100?text=%20'}
+                    src={profile.avatar || 'https://placehold.co/100x100?text=%20'} width='50px'
                     alt={profile.username}
                 />
                 <div className="profile-info">
                     <h1>{profile.username}</h1>
                     {profile.location && <p className="profile-location">{profile.location}</p>}
                     {profile.bio && <p className="profile-bio">{profile.bio}</p>}
-                    {profile.favoriteTheme && (
-                        <p className="profile-theme">Favorite theme: {profile.favoriteTheme}</p>
-                    )}
+                    
                 </div>
                 {isOwnProfile ? (
                     <Link to="/profile/edit">
