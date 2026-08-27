@@ -69,6 +69,8 @@ const EditProfile = ({ user, setUser }) => {
                 <p>{message}</p>
             </header>
             <form onSubmit={handleSubmit}>
+                Username:
+                <input type="text" name="username" onChange={handleChange} value={formData.username} required />
                 Bio:
                 <textarea name="bio" onChange={handleChange} value={formData.bio} placeholder="Tell other builders about yourself"/>
 
