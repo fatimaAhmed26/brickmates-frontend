@@ -20,6 +20,67 @@ const index = async (formData) => {
     }
 }
 
+const show = async (userId) => {
+    try {
+        const res = await fetch(`${BASE_URL}/users/${userId}`, {
+            method: 'GET',
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        })
+        const data = await res.json()
+
+        if (data.err) {
+            console.log(data.err)
+            throw new Error(data.err)
+        }
+
+        return data
+    } catch (err) {
+        throw new Error(err)
+    }
+}
+
+const update = async (userId, formData) => {
+    try {
+        const res = await fetch(`${BASE_URL}/users/${userId}`, {
+            method: 'PUT',
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+            body: formData,
+        })
+        const data = await res.json()
+
+        if (data.err) {
+            console.log(data.err)
+            throw new Error(data.err)
+        }
+
+        return data
+    } catch (err) {
+        throw new Error(err)
+    }
+}
+
+const followToggle = async (userId) => {
+    try {
+        const res = await fetch(`${BASE_URL}/users/${userId}/follow`, {
+            method: 'PUT',
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        })
+        const data = await res.json()
+
+        if (data.err) {
+            console.log(data.err)
+            throw new Error(data.err)
+        }
+
+        return data
+    } catch (err) {
+        throw new Error(err)
+    }
+}
+
 export {
     index,
+    show,
+    update,
+    followToggle
 }
