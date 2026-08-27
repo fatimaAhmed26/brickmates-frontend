@@ -13,9 +13,9 @@ const Marketplace = () => {
         fetchListings()
     }, [])
 
-    return (
-        <section>
-            <header>
+return (
+        <div className="marketplace">
+            <header className="marketplace-header">
                 <h1>Marketplace</h1>
                 <Link to="/listings/new">
                     <button>Create Listing</button>
@@ -25,20 +25,25 @@ const Marketplace = () => {
             <div className="listings-grid">
                 {listings.map((listing) => (
                     <Link to={`/listings/${listing._id}`} key={listing._id}>
-                        <div className="card">
-                            {listing.photos && listing.photos.length > 0 ? (
-                                <img src={listing.photos[0].url} alt={listing.setName} />
-                            ) : (
-                                <div className="placeholder-img" />
-                            )}
-                            <h3>{listing.setName || listing.setNum}</h3>
-                            <p>BHD {listing.price}</p>
-                            <p>{listing.condition}</p>
+                        <div className="listing-card">
+                            <div className="listing-image-wrap">
+                                {listing.photos && listing.photos.length > 0 ? (
+                                    <img src={listing.photos[0].url} alt={listing.setName} />
+                                ) : (
+                                    <div className="placeholder-img">No image</div>
+                                )}
+                                <span className="listing-badge">{listing.condition}</span>
+                            </div>
+                            <div className="listing-body">
+                                <h3 className="listing-title">{listing.setName || listing.setNum}</h3>
+                                <p className="listing-price">BHD {listing.price}</p>
+                                <p className="listing-meta">{listing.setNum}</p>
+                            </div>
                         </div>
                     </Link>
                 ))}
             </div>
-        </section>
+        </div>
     )
 }
 
