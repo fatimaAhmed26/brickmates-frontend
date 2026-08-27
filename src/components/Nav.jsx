@@ -15,7 +15,7 @@ const Nav = (props) => {
                 <ul>
                     <li>Welcome, {props.user.username}!</li>
                     <li>
-                        <Link to="/">Dashboard</Link>
+                        <Link to="/">Community</Link>
                     </li>
                     <li>
                     <Link to='/listings'>Marketplace</Link>
