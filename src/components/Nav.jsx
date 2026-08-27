@@ -18,6 +18,9 @@ const Nav = (props) => {
                         <Link to="/">Dashboard</Link>
                     </li>
                     <li>
+                    <Link to='/listings'>Marketplace</Link>
+                </li>
+                    <li>
                         <Link to="/" onClick={handleSignOut}>Sign Out</Link>
                     </li>
                 </ul>
