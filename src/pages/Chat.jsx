@@ -1,7 +1,7 @@
 import socket from '../socket'
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router'
-import { index as getMessages } from '../services/message'
+import { useParams, Link } from 'react-router'
+import { index as getMessages, conversations } from '../services/message'
 
 const Chat = (props) => {
     const { recipientId } = useParams()
@@ -10,6 +10,23 @@ const Chat = (props) => {
     const [isConnected, setIsConnected] = useState(socket.connected)
     const [formData, setFormData] = useState('')
     const [messages, setMessages] = useState([])
+    const [recipient, setRecipient] = useState(null)
+
+    useEffect(() => {
+    const fetchRecipient = async () => {
+        const data = await conversations()
+
+        const conversation = data.find(
+            convo => convo.otherUser?._id === recipientId
+        )
+
+        if (conversation) {
+            setRecipient(conversation.otherUser)
+        }
+    }
+
+    fetchRecipient()
+}, [recipientId])
 
     useEffect(() => {
         const fetchHistory = async () => {
@@ -67,7 +84,7 @@ const Chat = (props) => {
 
         const messageData = {
             username: props.user.username,
-            senderId: props.user._id,
+            sender: props.user._id,
             text: formData.trim(),
             roomId,
         }
@@ -79,30 +96,45 @@ const Chat = (props) => {
     }
 
     return (
-        <main>
-            <h1>Hoot Chat</h1>
-            <p>
+        <main className="chat">
+            <div className='chat-header'>
+                <Link to={`/profile/${recipientId}`} className="chat-title" > 
+                {recipient?.username || 'Loading...'}
+                </Link>
+            <p className="chat-status">
                 Status: { isConnected ? 'Connected' : 'Disconnected'}
             </p>
+            </div>
+            
 
-            <section>
-                <h2>Messages</h2>
+            <section className="chat-messages">
+                <h2 className="messages-title">Messages</h2>
 
                 {messages.length === 0 && (
-                    <p>No messages yet. Start the conversation!</p>
+                    <p className="no-messages">No messages yet</p>
                 )}
-                {messages.map(message => (
-                    <article key={message._id}>
-                        <strong>{message.username}</strong>
-                        <p>{message.text}</p>
-                    </article>
-                ))}
+                {messages.map(message => {
+
+                const isSent = String(message.sender) === String(props.user._id)
+
+                 return (
+                 <article
+                  className={isSent ? "message message-sent" : "message message-received"}
+                  key={message._id} >
+                 <strong className="message-username">{message.username}</strong>
+                 <p className="message-text">{message.text}</p>
+                  </article>
+                  ) 
+            })}
             </section>
 
-            <form onSubmit={handleSubmit}>
+            <form className="message-form" onSubmit={handleSubmit}>
+                <button type="button" className="attachment-button">
+                +
+            </button>
                 Message:
-                <input type="text" name='message' value={formData} onChange={handleChange} />
-                <button type='submit' disabled={!isConnected}>SEND</button>
+                <input className="message-input" type="text" name='message' value={formData} onChange={handleChange} />
+                <button className="send-button" type='submit' disabled={!isConnected}>➤</button>
             </form>
         </main>
     )

@@ -9,4 +9,16 @@ const index = async (roomId) => {
   return res.json()
 }
 
-export { index }
+const conversations = async () => {
+  const res = await fetch(`${BACK_END_URL}/messages`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+  })
+  return res.json()
+}
+
+
+export { index,
+    conversations
+ }
