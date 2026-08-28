@@ -1,6 +1,7 @@
 import socket from '../socket'
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router'
+import { index as getMessages } from '../services/message'
 
 const Chat = (props) => {
     const { recipientId } = useParams()
@@ -11,9 +12,18 @@ const Chat = (props) => {
     const [messages, setMessages] = useState([])
 
     useEffect(() => {
+        const fetchHistory = async () => {
+            const history = await getMessages(roomId)
+            setMessages(history)
+        }
+        fetchHistory()
+    }, [roomId])
+
+    useEffect(() => {
         const handleConnect = () => {
             console.log('Connected to chat: ', socket.id)
             setIsConnected(true)
+            socket.emit('join room', roomId)
         }   
 
         const handleDisconnect = () => {
@@ -36,12 +46,13 @@ const Chat = (props) => {
 
         return () => {
             console.log('Leaving chat and closing socket')
+            socket.emit('leave room', roomId)
             socket.off('connect', handleConnect)
             socket.off('disconnect', handleDisconnect)
             socket.off('chat message', handleChatMessage)
             socket.disconnect()
         }
-    }, [])
+    }, [roomId])
 
     const handleChange = (event) => {
         setFormData(event.target.value)
@@ -56,7 +67,9 @@ const Chat = (props) => {
 
         const messageData = {
             username: props.user.username,
+            senderId: props.user._id,
             text: formData.trim(),
+            roomId,
         }
 
         console.log('Chat form submitted:', messageData)
@@ -79,7 +92,7 @@ const Chat = (props) => {
                     <p>No messages yet. Start the conversation!</p>
                 )}
                 {messages.map(message => (
-                    <article key={message.id}>
+                    <article key={message._id}>
                         <strong>{message.username}</strong>
                         <p>{message.text}</p>
                     </article>
