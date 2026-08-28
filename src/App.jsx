@@ -12,6 +12,8 @@ import ListingDetail from "./pages/ListingDetails"
 import EditListingForm from "./pages/EditListingForm"
 import Profile from "./pages/Profile"
 import EditProfile from "./pages/EditProfile"
+import Chat from './pages/Chat'
+
 const getUserFromToken = () => {
   const token = localStorage.getItem('token')
 
@@ -38,6 +40,7 @@ const App = () => {
         <Route path='/listings' element={user ? <Marketplace /> : <Landing />} />
         <Route path='/listings/:listingId' element={user ? <ListingDetail user={user} /> : <Landing />} />
         <Route path='/listings/:listingId/edit' element={user ? <EditListingForm /> : <Landing />} />
+        <Route path='/chat' element={<Chat user={user} />} />
       </Routes>
       </main>
     </div>
