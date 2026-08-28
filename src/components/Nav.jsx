@@ -25,6 +25,7 @@ const Nav = (props) => {
                             <Link to="/">Build Together</Link>
                         </li>
                         <li><Link to='/chat'>CHAT</Link></li>
+                        <li><Link to="/messages">Direct Messages</Link></li>
                     </ul>
 
                     <div className="nav-actions">

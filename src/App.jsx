@@ -13,6 +13,7 @@ import EditListingForm from "./pages/EditListingForm"
 import Profile from "./pages/Profile"
 import EditProfile from "./pages/EditProfile"
 import Chat from './pages/Chat'
+import Inbox from "./pages/Inbox"
 
 const getUserFromToken = () => {
   const token = localStorage.getItem('token')
@@ -42,6 +43,7 @@ const App = () => {
         <Route path='/listings/:listingId/edit' element={user ? <EditListingForm /> : <Landing />} />
         <Route path='/chat' element={<Chat user={user} />} />
         <Route path='/chat/:recipientId' element={<Chat user={user} />} />
+        <Route path='/messages' element={user ? <Inbox user={user} /> : <Landing />} />
       </Routes>
       </main>
     </div>

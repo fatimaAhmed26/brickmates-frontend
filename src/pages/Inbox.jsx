@@ -19,23 +19,23 @@ const Inbox = ({ user }) => {
 
    return (
         <div className="inbox">
-            <h1>Direct Messages</h1>
+            <h1 className="inbox-title">Direct Messages</h1>
 
             {conversationList.length === 0 ? (
-                <p>No conversations yet.</p>
+                <p className="empty-inbox">No conversations yet.</p>
             ) : (
-                <ul>
+                <ul className="conversation-list">
                     {conversationList.map((convo) => (
-                        <li key={convo.roomId}>
-                            <Link to={`/chat/${convo.otherUser?._id}`}>
-                                <img
-                                    src={convo.otherUser?.avatar || 'https://placehold.co/50x50?text=%20'}
+                        <li className="conversation-item" key={convo.roomId}>
+                            <Link className="conversation-link" to={`/chat/${convo.otherUser?._id}`}>
+                                <img className="conversation-avatar"
+                                    src={convo.otherUser?.avatar || 'https://placehold.co/50x50?text=%20'} width="50px"
                                     alt={convo.otherUser?.username}
                                     
                                 />
-                                <div>
-                                    <p>{convo.otherUser?.username}</p>
-                                    <p>
+                                <div className="conversation-info">
+                                    <p className="conversation-name">{convo.otherUser?.username}</p>
+                                    <p className="conversation-preview">
                                         {convo.lastMessage?.text || 'No messages yet'}
                                     </p>
                                 </div>
