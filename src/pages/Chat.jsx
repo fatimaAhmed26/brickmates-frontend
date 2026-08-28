@@ -1,9 +1,11 @@
-// src/pages/Chat.jsx
-
 import socket from '../socket'
 import { useState, useEffect } from 'react'
+import { useParams } from 'react-router'
 
 const Chat = (props) => {
+    const { recipientId } = useParams()
+    const roomId = [props.user._id, recipientId].sort().join('_')
+
     const [isConnected, setIsConnected] = useState(socket.connected)
     const [formData, setFormData] = useState('')
     const [messages, setMessages] = useState([])

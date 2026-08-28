@@ -41,6 +41,7 @@ const App = () => {
         <Route path='/listings/:listingId' element={user ? <ListingDetail user={user} /> : <Landing />} />
         <Route path='/listings/:listingId/edit' element={user ? <EditListingForm /> : <Landing />} />
         <Route path='/chat' element={<Chat user={user} />} />
+        <Route path='/chat/:recipientId' element={<Chat user={user} />} />
       </Routes>
       </main>
     </div>

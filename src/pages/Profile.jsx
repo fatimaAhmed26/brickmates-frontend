@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
-import { useParams, Link } from 'react-router'
+import { useParams, Link, useNavigate } from 'react-router'
 import { show, followToggle } from '../services/user'
 import { index as indexListings } from '../services/listing'
 
 const Profile = ({ user }) => {
     const { userId } = useParams()
+    const navigate = useNavigate()
+
     const [profile, setProfile] = useState(null)
     const [listings, setListings] = useState([])
     const [builds, setBuilds] = useState([])
@@ -77,7 +79,8 @@ const Profile = ({ user }) => {
                     )}
 
                     {!isOwnProfile && (
-                        <button className="btn-message">
+                        <button className="btn-message"
+                        onClick={() => navigate(`/chat/${profile._id}`)} >
                              Message
                         </button>
                     )}
