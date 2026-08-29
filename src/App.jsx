@@ -14,6 +14,8 @@ import Profile from "./pages/Profile"
 import EditProfile from "./pages/EditProfile"
 import Chat from './pages/Chat'
 import Inbox from "./pages/Inbox"
+import SetsList from "./pages/SetsList"
+import SetDetails from "./pages/SetDetails"
 
 const getUserFromToken = () => {
   const token = localStorage.getItem('token')
@@ -46,6 +48,8 @@ const App = () => {
         <Route path='/messages/:recipientId' element={ user ? ( <div className="messages-page"> <Inbox user={user} /> <Chat user={user} /> 
         </div> ) : (  <Landing /> ) } />
         <Route path='/messages' element={user ? <Inbox user={user} /> : <Landing />} />
+        <Route path='/sets' element={<SetsList />} />
+        <Route path='/sets/:setId' element={<SetDetails />} />
       </Routes>
       </main>
     </div>
