@@ -17,6 +17,7 @@ import Inbox from "./pages/Inbox"
 import SetsList from "./pages/SetsList"
 import SetDetails from "./pages/SetDetails"
 import BuildForm from "./pages/BuildForm"
+import BuildList from "./pages/BuildList"
 
 const getUserFromToken = () => {
   const token = localStorage.getItem('token')
@@ -52,6 +53,7 @@ const App = () => {
         <Route path='/sets' element={<SetsList />} />
         <Route path='/sets/:setId' element={<SetDetails />} />
         <Route path='/builds/new' element={user ? <BuildForm /> : <Landing />} />
+        <Route path='/builds' element={user ? <BuildList /> : <Landing />} />
       </Routes>
       </main>
     </div>
