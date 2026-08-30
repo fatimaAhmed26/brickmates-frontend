@@ -18,6 +18,7 @@ import SetsList from "./pages/SetsList"
 import SetDetails from "./pages/SetDetails"
 import BuildForm from "./pages/BuildForm"
 import BuildList from "./pages/BuildList"
+import BuildTogether from "./pages/BuildTogether"
 
 const getUserFromToken = () => {
   const token = localStorage.getItem('token')
@@ -54,6 +55,8 @@ const App = () => {
         <Route path='/sets/:setId' element={<SetDetails />} />
         <Route path='/builds/new' element={user ? <BuildForm /> : <Landing />} />
         <Route path='/builds' element={user ? <BuildList /> : <Landing />} />
+        <Route path='/build-together' element={user ? <BuildTogether /> : <Landing />} />
+  
       </Routes>
       </main>
     </div>
