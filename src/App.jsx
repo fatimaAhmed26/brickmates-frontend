@@ -19,6 +19,7 @@ import SetDetails from "./pages/SetDetails"
 import BuildForm from "./pages/BuildForm"
 import BuildList from "./pages/BuildList"
 import BuildDetails from "./pages/BuildDetails"
+import EditBuildForm from "./pages/EditBuildForm"
 
 const getUserFromToken = () => {
   const token = localStorage.getItem('token')
@@ -56,6 +57,7 @@ const App = () => {
         <Route path='/builds/new' element={user ? <BuildForm /> : <Landing />} />
         <Route path='/builds' element={user ? <BuildList /> : <Landing />} />
         <Route path='/builds/:buildId' element={user ? <BuildDetails user={user} /> : <Landing />} />
+        <Route path='/builds/:buildId/edit' element={user ? <EditBuildForm /> : <Landing />} />
       </Routes>
       </main>
     </div>
