@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { search } from '../services/set'
 import { create } from '../services/queue'
+import socket from '../socket'
 
-const BuildTogether = () => {
+const BuildTogether = ({user}) => {
     const navigate = useNavigate()
 
     const [query, setQuery] = useState('')
@@ -11,6 +12,20 @@ const BuildTogether = () => {
     const [selectedSet, setSelectedSet] = useState(null)
     const [message, setMessage] = useState('')
     const [waiting, setWaiting] = useState(false)
+useEffect(() => {
+    socket.connect()
+    socket.emit('join room', user._id)
+
+    const handleMatchFound = ({ matchId }) => {
+        navigate(`/build-together/${matchId}`)
+    }
+
+    socket.on('build match found', handleMatchFound)
+
+    return () => {
+        socket.off('build match found', handleMatchFound)
+    }
+}, [user._id, navigate])
 
     const handleSearchChange = async (event) => {
         const value = event.target.value

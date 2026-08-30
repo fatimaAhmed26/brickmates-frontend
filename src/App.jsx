@@ -21,6 +21,7 @@ import BuildList from "./pages/BuildList"
 import BuildTogether from "./pages/BuildTogether"
 import BuildDetails from "./pages/BuildDetails"
 import EditBuildForm from "./pages/EditBuildForm"
+import BuildMatchPage from "./pages/BuildMatchPage"
 
 const getUserFromToken = () => {
   const token = localStorage.getItem('token')
@@ -57,10 +58,11 @@ const App = () => {
         <Route path='/sets/:setId' element={<SetDetails />} />
         <Route path='/builds/new' element={user ? <BuildForm /> : <Landing />} />
         <Route path='/builds' element={user ? <BuildList /> : <Landing />} />
-        <Route path='/build-together' element={user ? <BuildTogether /> : <Landing />} />
+        <Route path='/build-together' element={user ? <BuildTogether user={user} /> : <Landing />} />
   
         <Route path='/builds/:buildId' element={user ? <BuildDetails user={user} /> : <Landing />} />
         <Route path='/builds/:buildId/edit' element={user ? <EditBuildForm /> : <Landing />} />
+        <Route path='/build-together/:matchId' element={user ? <BuildMatchPage user={user} /> : <Landing />} />
       </Routes>
       </main>
     </div>
