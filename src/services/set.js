@@ -30,7 +30,11 @@ const search = async (query) => {
 
 const themes = async () => {
   try {
-    const res = await fetch(THEMES_URL);
+   const res = await fetch(THEMES_URL, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        })
     return res.json();
   } catch (err) {
     console.log(err);
