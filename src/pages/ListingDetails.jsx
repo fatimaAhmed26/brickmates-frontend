@@ -59,7 +59,7 @@ const ListingDetail = ({ user }) => {
             )}
 
             {!isOwner && (
-                <Link to={`/messages/new?to=${listing.owner?._id}`}>
+                <Link to={`/chat/${listing.owner?._id}`}>
                     <button>Message Seller</button>
                 </Link>
             )}

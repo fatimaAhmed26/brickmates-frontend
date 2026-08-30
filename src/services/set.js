@@ -36,6 +36,8 @@ const themes = async () => {
             },
         })
     return res.json();
+    console.log(res);
+    
   } catch (err) {
     console.log(err);
   }
