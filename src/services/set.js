@@ -1,4 +1,5 @@
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/sets`;
+const THEMES_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/themes`;
 
 const index = async () => {
   try {
@@ -27,4 +28,13 @@ const search = async (query) => {
   }
 };
 
-export { index, show, search };
+const themes = async () => {
+  try {
+    const res = await fetch(THEMES_URL);
+    return res.json();
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export { index, show, search, themes };
