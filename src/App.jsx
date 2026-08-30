@@ -18,6 +18,7 @@ import SetsList from "./pages/SetsList"
 import SetDetails from "./pages/SetDetails"
 import BuildForm from "./pages/BuildForm"
 import BuildList from "./pages/BuildList"
+import BuildTogether from "./pages/BuildTogether"
 import BuildDetails from "./pages/BuildDetails"
 import EditBuildForm from "./pages/EditBuildForm"
 
@@ -56,6 +57,8 @@ const App = () => {
         <Route path='/sets/:setId' element={<SetDetails />} />
         <Route path='/builds/new' element={user ? <BuildForm /> : <Landing />} />
         <Route path='/builds' element={user ? <BuildList /> : <Landing />} />
+        <Route path='/build-together' element={user ? <BuildTogether /> : <Landing />} />
+  
         <Route path='/builds/:buildId' element={user ? <BuildDetails user={user} /> : <Landing />} />
         <Route path='/builds/:buildId/edit' element={user ? <EditBuildForm /> : <Landing />} />
       </Routes>
