@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router';
 import * as buildService from '../services/build';
 import { useRef } from 'react';
+import toast from 'react-hot-toast'
 
 
 const BuildDetails = ({ user }) => {
@@ -32,6 +33,8 @@ const openModal = () => dialogRef.current?.showModal();
 
   const handleDelete = async () => {
     await buildService.deleteBuild(buildId);
+      toast.success('Build deleted')
+
     navigate('/builds');
   };
 

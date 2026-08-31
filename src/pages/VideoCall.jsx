@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router';
+import { useParams, useNavigate } from 'react-router';
+import toast from 'react-hot-toast';
 import {
   StreamVideo,
   StreamVideoClient,
@@ -13,15 +14,17 @@ import * as videoService from '../services/video';
 
 const VideoCall = () => {
   const { callId } = useParams();
+  const navigate = useNavigate();
   const [client, setClient] = useState(null);
   const [call, setCall] = useState(null);
 
   useEffect(() => {
     let videoClient;
     let videoCall;
-    let cancelled = false;
 
     const setup = async () => {
+      const toastId = toast.loading('Connecting to call...');
+
       try {
         const { token, apiKey, userId } = await videoService.getToken();
 
@@ -32,47 +35,53 @@ const VideoCall = () => {
         });
 
         videoCall = videoClient.call('default', callId);
-
         await videoCall.join({ create: true });
 
-        if (cancelled) {
-          await videoCall.leave();
-          await videoClient.disconnectUser();
-          return;
-        }
+        videoCall.on('call.session_participant_joined', (event) => {
+          toast(`${event.participant.user.name || 'Someone'} joined the call`);
+        });
+
+        videoCall.on('call.session_participant_left', (event) => {
+          toast(`${event.participant.user.name || 'Someone'} left the call`);
+        });
+
+        videoCall.on('call.ended', () => {
+          toast('Call ended');
+          navigate(-1);
+        });
 
         setClient(videoClient);
         setCall(videoCall);
-      } catch (error) {
-        console.error('Failed to join video call:', error);
+        toast.success('Connected!', { id: toastId });
+      } catch (err) {
+        toast.error('Could not join the call', { id: toastId });
+        console.log(err);
       }
     };
 
     setup();
 
     return () => {
-      cancelled = true;
-
-      if (videoCall) {
-        videoCall.leave().catch(console.error);
-      }
-
-      if (videoClient) {
-        videoClient.disconnectUser().catch(console.error);
-      }
+      videoCall?.leave().catch(console.log);
+      videoClient?.disconnectUser().catch(console.log);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [callId]);
 
-  if (!client || !call) {
-    return <p>Connecting...</p>;
-  }
+  const handleLeave = async () => {
+    await call.leave();
+    toast('You left the call');
+    navigate(-1);
+  };
+
+  if (!client || !call) return <p>Connecting...</p>;
 
   return (
     <StreamVideo client={client}>
       <StreamCall call={call}>
         <StreamTheme>
           <SpeakerLayout participantBarPosition="right" />
-          <CallControls />
+          <CallControls onLeave={handleLeave} />
         </StreamTheme>
       </StreamCall>
     </StreamVideo>

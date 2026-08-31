@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import * as buildService from '../services/build';
 import * as set from '../services/set';
+import toast from 'react-hot-toast'
+
 
 const BuildForm = () => {
   const navigate = useNavigate();
@@ -47,6 +49,12 @@ const BuildForm = () => {
     if (imageFile) data.append('image', imageFile);
 
     const build = await buildService.create(data);
+    if (build.err) {
+    toast.error(build.err)
+    return
+  }
+
+  toast.success('Build posted!')
     navigate(`/builds/${build._id}`);
   };
 
