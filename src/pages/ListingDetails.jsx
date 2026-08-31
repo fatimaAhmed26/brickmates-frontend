@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect ,useRef } from 'react'
 import { useParams, useNavigate, Link } from 'react-router'
 import { show, deleteListing } from '../services/listing'
 
@@ -6,6 +6,10 @@ const ListingDetail = ({ user }) => {
     const { listingId } = useParams()
     const navigate = useNavigate()
     const [listing, setListing] = useState(null)
+
+ const dialogRef = useRef(null);
+const openModal = () => dialogRef.current?.showModal();
+  const closeModal = () => dialogRef.current?.close();
 
     useEffect(() => {
         const fetchListing = async () => {
@@ -54,7 +58,16 @@ const ListingDetail = ({ user }) => {
                     <Link to={`/listings/${listing._id}/edit`}>
                         <button>Edit</button>
                     </Link>
+                        <button className="btn-danger" onClick={openModal}>Delete</button>
+
+<dialog ref={dialogRef} className="confirm-dialog">
+                    <h2>Are you sure?</h2>
+                    <p>when you click delete this list will be deleted</p>
+                    <div className="actions">
                     <button onClick={handleDelete}>Delete</button>
+                        <button type="button" className="btn-secondary" onClick={closeModal}>Close</button>
+                    </div>
+                </dialog>
                 </div>
             )}
 

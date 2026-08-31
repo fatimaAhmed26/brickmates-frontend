@@ -1,13 +1,17 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router';
 import * as buildService from '../services/build';
+import { useRef } from 'react';
+
 
 const BuildDetails = ({ user }) => {
   const { buildId } = useParams();
   const navigate = useNavigate();
   const [build, setBuild] = useState(null);
   const [commentText, setCommentText] = useState('');
-
+ const dialogRef = useRef(null);
+const openModal = () => dialogRef.current?.showModal();
+  const closeModal = () => dialogRef.current?.close();
   useEffect(() => {
     const fetchBuild = async () => {
       const buildData = await buildService.show(buildId);
@@ -62,7 +66,15 @@ const BuildDetails = ({ user }) => {
       {isOwner && (
         <div>
           <Link to={`/builds/${buildId}/edit`}>Edit</Link>
+          <button className="btn-danger" onClick={openModal}>Delete</button>
+           <dialog ref={dialogRef} className="confirm-dialog">
+                    <h2>Are you sure?</h2>
+                    <p>when you click delete this build will be deleted</p>
+                    <div className="actions">
           <button onClick={handleDelete}>Delete</button>
+                        <button type="button" className="btn-secondary" onClick={closeModal}>Close</button>
+                    </div>
+                </dialog>
         </div>
       )}
 
