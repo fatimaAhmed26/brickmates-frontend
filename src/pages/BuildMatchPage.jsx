@@ -1,7 +1,7 @@
 import socket from '../socket'
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router'
-import { show, update } from '../services/buildmatch'
+import { show, updateStep } from '../services/buildmatch'
 import { index as getMessages } from '../services/message'
 
 const BuildMatchPage = ({ user }) => {
@@ -43,9 +43,14 @@ const BuildMatchPage = ({ user }) => {
             setMessages((previousMessages) => [...previousMessages, newMessage])
         }
 
+        const handleStepUpdated = (updatedMatch) => {
+            setMatch(updatedMatch)
+        }
+
         socket.on('connect', handleConnect)
         socket.on('disconnect', handleDisconnect)
         socket.on('chat message', handleChatMessage)
+        socket.on('step updated', handleStepUpdated)
 
         socket.connect()
 
@@ -54,6 +59,7 @@ const BuildMatchPage = ({ user }) => {
             socket.off('connect', handleConnect)
             socket.off('disconnect', handleDisconnect)
             socket.off('chat message', handleChatMessage)
+            socket.off('step updated', handleStepUpdated)
             socket.disconnect()
         }
     }, [roomId])
@@ -77,9 +83,12 @@ const BuildMatchPage = ({ user }) => {
         setFormData('')
     }
 
+    const myStepEntry = match?.steps?.find((s) => s.user?._id === user._id)
+    const partnerStepEntry = match?.steps?.find((s) => s.user?._id !== user._id)
+
     const handleStepChange = async (delta) => {
-        const newStep = Math.max(0, (match.currentStep || 0) + delta)
-        const updatedMatch = await update(matchId, { currentStep: newStep })
+        const newStep = Math.max(0, (myStepEntry?.currentStep || 0) + delta)
+        const updatedMatch = await updateStep(matchId, { currentStep: newStep })
         setMatch(updatedMatch)
     }
 
@@ -95,9 +104,16 @@ const BuildMatchPage = ({ user }) => {
             </header>
 
             <section className="checklist">
-                <p>Step {match.currentStep || 0} of {match.totalSteps || '?'}</p>
-                <button onClick={() => handleStepChange(-1)}>-</button>
-                <button onClick={() => handleStepChange(1)}>+</button>
+                <div className="step-row">
+                    <span>You</span>
+                    <p>Step {myStepEntry?.currentStep || 0}{match.totalSteps ? ` of ${match.totalSteps}` : ''}</p>
+                    <button onClick={() => handleStepChange(-1)}>-</button>
+                    <button onClick={() => handleStepChange(1)}>+</button>
+                </div>
+                <div className="step-row">
+                    <span>{partner?.username}</span>
+                    <p>Step {partnerStepEntry?.currentStep || 0}{match.totalSteps ? ` of ${match.totalSteps}` : ''}</p>
+                </div>
             </section>
 
             <section className="chat-messages">
