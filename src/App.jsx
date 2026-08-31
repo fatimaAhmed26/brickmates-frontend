@@ -22,6 +22,7 @@ import BuildTogether from "./pages/BuildTogether"
 import BuildDetails from "./pages/BuildDetails"
 import EditBuildForm from "./pages/EditBuildForm"
 import BuildMatchPage from "./pages/BuildMatchPage"
+import VideoCall from "./pages/VideoCall"
 
 const getUserFromToken = () => {
   const token = localStorage.getItem('token')
@@ -63,6 +64,7 @@ const App = () => {
         <Route path='/builds/:buildId' element={user ? <BuildDetails user={user} /> : <Landing />} />
         <Route path='/builds/:buildId/edit' element={user ? <EditBuildForm /> : <Landing />} />
         <Route path='/build-together/:matchId' element={user ? <BuildMatchPage user={user} /> : <Landing />} />
+        <Route path='/call/:callId' element={user ? <VideoCall /> : <Landing />} />
       </Routes>
       </main>
     </div>

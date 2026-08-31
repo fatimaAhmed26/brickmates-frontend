@@ -101,6 +101,7 @@ const BuildMatchPage = ({ user }) => {
             <header className="match-header">
                 <h1>{match.setName || match.setNum}</h1>
                 <p>Building with {partner?.username}</p>
+                <Link to={`/call/${matchId}`}>Start video call</Link>
             </header>
 
             <section className="checklist">
