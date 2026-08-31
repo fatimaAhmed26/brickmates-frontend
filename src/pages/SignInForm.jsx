@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router"
 import { useState } from "react"
 import { signIn } from "../services/auth"
+import toast from 'react-hot-toast'
 
 const SignInForm = (props) => {
 
@@ -24,9 +25,12 @@ const SignInForm = (props) => {
             const signedInUser = await signIn(formData)
             props.setUser(signedInUser)
             setFormData(initialState)
+                toast.success(`Welcome back, ${user.username}!`)
+
             navigate('/')
         } catch(err) {
-            setMessage(err.message)
+                toast.error(err.message || 'Sign in failed')
+
         }
     }
 
