@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link, useNavigate } from 'react-router'
-import { show, followToggle } from '../services/user'
+import { show, followToggle, collectionToggle } from '../services/user'
 import { index as indexListings } from '../services/listing'
 import { show as showSet } from '../services/set'
 
@@ -54,6 +54,10 @@ const Profile = ({ user }) => {
     const isOwnProfile = user && user._id === profile._id
     const isFollowing = profile.followerIds && profile.followerIds.includes(user?._id)
 
+    const handleRemoveFromCollection = async (setNum) => {
+    const updatedUser = await collectionToggle(profile._id, setNum)
+    setProfile(updatedUser)
+}
     return (
     <div className="profile">
         <header className="profile-header">
@@ -167,8 +171,8 @@ const Profile = ({ user }) => {
     <div className="collection-card" key={set.setNum}>
         <div className="collection-image">
             <span className="collection-badge">COLLECTOR</span>
-            {set.imageUrl ? (
-                <img src={set.imageUrl} alt={set.name} />
+            {set.image ? (
+                <img src={set.image} alt={set.name} />
             ) : (
                 <div className="set-placeholder">LEGO</div>
             )}
@@ -176,6 +180,13 @@ const Profile = ({ user }) => {
         <div className="collection-body">
             <h3>{set.name || `Set ${set.setNum}`}</h3>
             <p>{set.setNum}</p>
+            {isOwnProfile && (
+        <button
+            className="btn-remove"
+            onClick={() => handleRemoveFromCollection(set.setNum)}>
+            Remove from Collection
+        </button>
+    )}
         </div>
     </div>
 ))}
