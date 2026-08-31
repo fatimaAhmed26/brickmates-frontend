@@ -59,8 +59,9 @@ const App = () => {
         <Route path='/messages/:recipientId' element={ user ? ( <div className="messages-page"> <Inbox user={user} /> <Chat user={user} /> 
         </div> ) : (  <Landing /> ) } />
         <Route path='/messages' element={user ? <Inbox user={user} /> : <Landing />} />
-        <Route path='/sets' element={<SetsList />} />
+        <Route path="/sets" element={<SetsList user={user} setUser={setUser} />} />
         <Route path='/sets/:setId' element={<SetDetails />} />
+        
         <Route path='/builds/new' element={user ? <BuildForm /> : <Landing />} />
         <Route path='/builds' element={user ? <BuildList /> : <Landing />} />
         <Route path='/build-together' element={user ? <BuildTogether user={user} /> : <Landing />} />
@@ -69,6 +70,7 @@ const App = () => {
         <Route path='/builds/:buildId/edit' element={user ? <EditBuildForm /> : <Landing />} />
         <Route path='/build-together/:matchId' element={user ? <BuildMatchPage user={user} /> : <Landing />} />
         <Route path='/call/:callId' element={user ? <VideoCall /> : <Landing />} />
+        
       </Routes>
       </main>
     </div>

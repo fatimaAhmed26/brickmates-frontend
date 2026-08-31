@@ -2,15 +2,31 @@ import { useState, useEffect } from 'react'
 import { useParams, Link, useNavigate } from 'react-router'
 import { show, followToggle } from '../services/user'
 import { index as indexListings } from '../services/listing'
+import { show as showSet } from '../services/set'
 
 const Profile = ({ user }) => {
     const { userId } = useParams()
     const navigate = useNavigate()
-
+    const [collectionSets, setCollectionSets] = useState([])
     const [profile, setProfile] = useState(null)
     const [listings, setListings] = useState([])
     const [builds, setBuilds] = useState([])
     const [activeTab, setActiveTab] = useState('builds')
+    useEffect(() => {
+    const fetchCollectionSets = async () => {
+        console.log('collectionSetIds:', profile?.collectionSetIds)  
+        if (!profile?.collectionSetIds || profile.collectionSetIds.length === 0) {
+            setCollectionSets([])
+            return
+        }
+        const setsData = await Promise.all(
+            profile.collectionSetIds.map((setNum) => showSet(setNum))
+        )
+        setCollectionSets(setsData)
+    }
+    fetchCollectionSets()
+}, [profile])
+    
     useEffect(() => {
         const fetchProfile = async () => {
             const profileData = await show(userId)
@@ -141,34 +157,28 @@ const Profile = ({ user }) => {
 
         {activeTab === 'collection' && (
             <section className="profile-section">
-                {!profile.collectionSetIds ||
-                profile.collectionSetIds.length === 0 ? (
+                {collectionSets.length === 0 ? (
                     <p className="empty-state">
                         No sets in collection yet.
                     </p>
                 ) : (
                     <div className="collection-grid">
-                        {profile.collectionSetIds.map((setNum) => (
-                            <div
-                                className="collection-card"
-                                key={setNum}
-                            >
-                                <div className="collection-image">
-                                    <span className="collection-badge">
-                                        COLLECTOR
-                                    </span>
-
-                                    <div className="set-placeholder">
-                                        LEGO
-                                    </div>
-                                </div>
-
-                                <div className="collection-body">
-                                    <h3>Set {setNum}</h3>
-                                    <p>LEGO Collection</p>
-                                </div>
-                            </div>
-                        ))}
+                        {collectionSets.map((set) => (
+    <div className="collection-card" key={set.setNum}>
+        <div className="collection-image">
+            <span className="collection-badge">COLLECTOR</span>
+            {set.imageUrl ? (
+                <img src={set.imageUrl} alt={set.name} />
+            ) : (
+                <div className="set-placeholder">LEGO</div>
+            )}
+        </div>
+        <div className="collection-body">
+            <h3>{set.name || `Set ${set.setNum}`}</h3>
+            <p>{set.setNum}</p>
+        </div>
+    </div>
+))}
                     </div>
                 )}
             </section>
