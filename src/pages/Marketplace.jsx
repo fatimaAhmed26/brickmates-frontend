@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router'
 import { index } from '../services/listing'
+import { themes } from '../services/set'
 
 const Marketplace = () => {
     const [listings, setListings] = useState([])
@@ -8,16 +9,24 @@ const Marketplace = () => {
     const [condition, setCondition] = useState('all')
     const [minPrice, setMinPrice] = useState('')
     const [maxPrice, setMaxPrice] = useState('')
+    const [themeOptions, setThemeOptions] = useState([])
 
     useEffect(() => {
         const fetchListings = async () => {
             const listingsData = await index()
+            console.log(listingsData)
             setListings(listingsData)
         }
         fetchListings()
     }, [])
 
-    const themes = ['all', ...new Set(listings.map((l) => l.theme).filter(Boolean))]
+    useEffect(() => {
+    const fetchThemes = async () => {
+        const themeList = await themes()
+        setThemeOptions(themeList)
+    }
+    fetchThemes()
+}, [])
 
     const filteredListings = listings.filter((listing) => {
     if (theme !== 'all' && listing.theme !== theme) return false
@@ -38,8 +47,9 @@ return (
 
             <div className="marketplace-filters">
                 <select value={theme} onChange={(e) => setTheme(e.target.value)}>
-                    {themes.map((t) => (
-                        <option key={t} value={t}>{t === 'all' ? 'All themes' : t}</option>
+                <option value="all">All themes</option>
+                {themeOptions.map((t) => (
+                    <option key={t.id} value={t.name}>{t.name}</option>
                     ))}
                 </select>
 
@@ -62,6 +72,7 @@ return (
                     onChange={(e) => setMaxPrice(e.target.value)}
                 />
             </div>
+            
 
             <div className="listings-grid">
                 {filteredListings.map((listing) => (
@@ -79,6 +90,7 @@ return (
                                 <h3 className="listing-title">{listing.setName || listing.setNum}</h3>
                                 <p className="listing-price">BHD {listing.price}</p>
                                 <p className="listing-meta">{listing.setNum}</p>
+                                <p className="listing-theme">{listing.theme}</p>
                             </div>
                         </div>
                     </Link>

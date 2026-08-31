@@ -22,6 +22,9 @@ const show = async (setId) => {
 const search = async (query) => {
   try {
     const res = await fetch(`${BASE_URL}/search?q=${encodeURIComponent(query)}`);
+    const data = await res.json();
+    console.log('SET SEARCH RESULT:', data);   // ADD THIS LINE
+    return data;
     return res.json();
   } catch (err) {
     console.log(err);

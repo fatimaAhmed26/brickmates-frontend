@@ -78,9 +78,33 @@ const followToggle = async (userId) => {
     }
 }
 
+const collectionToggle = async (userId, setId) => {
+    try {
+        const res = await fetch(`${BASE_URL}/users/${userId}/collection`, {
+            method: 'PUT',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ setId }),
+        })
+        const data = await res.json()
+
+        if (data.err) {
+            console.log(data.err)
+            throw new Error(data.err)
+        }
+
+        return data
+    } catch (err) {
+        throw new Error(err)
+    }
+}
+
 export {
     index,
     show,
     update,
-    followToggle
+    followToggle,
+    collectionToggle
 }

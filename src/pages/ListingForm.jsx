@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { create } from '../services/listing'
 import { search, themes } from '../services/set'
@@ -12,15 +12,26 @@ const ListingForm = () => {
         condition: 'built',
         price: '',
         description: '',
+        theme: '',
     }
 
     const [formData, setFormData] = useState(initialState)
     const [photos, setPhotos] = useState([])
     const [message, setMessage] = useState('')
 
+    const [themeOptions, setThemeOptions] = useState([])
     const [query, setQuery] = useState('')
     const [results, setResults] = useState([])
     const [selectedSet, setSelectedSet] = useState(null)
+
+    useEffect(() => {
+    const fetchThemes = async () => {
+        const themeList = await themes()
+        setThemeOptions(themeList)
+    }
+    fetchThemes() 
+    }, [])
+
     const handleChange = (event) => {
         setFormData({ ...formData, [event.target.name]: event.target.value })
     }
@@ -58,14 +69,8 @@ const ListingForm = () => {
             listingFormData.append('condition', formData.condition)
             listingFormData.append('price', formData.price)
             listingFormData.append('description', formData.description)
-
-            if (selectedSet.themeId) {
-            const themeList = await themes()
-            const matchedTheme = themeList.find((t) => t.id === selectedSet.themeId)
-            if (matchedTheme) {
-                listingFormData.append('theme', matchedTheme.name)
-            }
-        }
+            listingFormData.append('theme', formData.theme)
+            
         
             photos.forEach((photo) => {
                 listingFormData.append('photos', photo)
@@ -86,8 +91,8 @@ const ListingForm = () => {
    
 
     const isFormValid = () => {
-        return selectedSet && formData.condition && formData.price
-    }
+    return selectedSet && formData.condition && formData.price && formData.theme
+}
 
      return (
         <section className="card">
@@ -112,6 +117,15 @@ const ListingForm = () => {
                         <p>Selected: {selectedSet.name} ({selectedSet.setNum})</p>
                     </div>
                 )}
+
+                Theme:
+                 <select name="theme" onChange={handleChange} value={formData.theme} required>
+                 <option value="">Select a theme</option>
+                 {themeOptions.map((t) => (
+                 <option key={t.id} value={t.name}>{t.name}</option> 
+                 ))}
+                 </select>
+
                 Condition:
                 <select name="condition" onChange={handleChange} value={formData.condition}>
                     <option value="built">Built</option>

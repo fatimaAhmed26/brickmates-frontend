@@ -24,7 +24,7 @@ const Nav = (props) => {
                         <li>
                             <Link to="/build-together">Build Together</Link>
                         </li>
-                        <li><Link to='/chat'>CHAT</Link></li>
+                        <li><Link to={`/profile/${props.user._id}`}>Profile</Link></li>
                         <li><Link to="/messages">Direct Messages</Link></li>
                     </ul>
 

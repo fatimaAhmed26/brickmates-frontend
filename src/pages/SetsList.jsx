@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router'
 import * as setService from "../services/set";
+import * as userService from "../services/user"
 
-const SetsList = () => {
+const SetsList = ({ user, setUser }) => {
   const [sets, setSets] = useState([])
   const [query, setQuery] = useState('')
 
@@ -27,7 +28,16 @@ const SetsList = () => {
     setSets(results)
   }
 
-  return (
+  const handleAddToCollection = async (setId) => {
+    const updatedUser = await userService.collectionToggle(user._id, setId)
+    setUser(updatedUser)
+}
+
+const isInCollection = (setId) => {
+    return user?.collectionSetIds?.includes(setId)
+}
+
+   return (
     <div>
       <form onSubmit={handleSearch}>
         <input
@@ -40,14 +50,22 @@ const SetsList = () => {
       </form>
 
       {sets.map((set) => (
-        <Link to={`/sets/${set.setNum}`} key={set.setNum}>
-          <img src={set.image} alt={set.name} />
-          <h3>{set.name}</h3>
-          <p>{set.theme} · {set.year} · {set.pieceCount} pieces</p>
-        </Link>
+        <div key={set.setNum}>
+          <Link to={`/sets/${set.setNum}`}>
+            <img src={set.image} alt={set.name} />
+            <h3>{set.name}</h3>
+            <p>{set.theme} · {set.year} · {set.pieceCount} pieces</p>
+          </Link>
+
+          {user && (
+            <button onClick={() => handleAddToCollection(set._id)}>
+              {isInCollection(set._id) ? 'Remove from Collection' : 'Add to Collection'}
+            </button>
+          )}
+        </div>
       ))}
     </div>
-  );
-};
+  )
+}
 
 export default SetsList
