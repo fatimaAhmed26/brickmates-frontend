@@ -23,6 +23,8 @@ import BuildDetails from "./pages/BuildDetails"
 import EditBuildForm from "./pages/EditBuildForm"
 import BuildMatchPage from "./pages/BuildMatchPage"
 import VideoCall from "./pages/VideoCall"
+import { Toaster } from 'react-hot-toast'
+
 
 const getUserFromToken = () => {
   const token = localStorage.getItem('token')
@@ -39,6 +41,8 @@ const App = () => {
   return (
     <div>
       <Nav user={user} setUser={setUser} />
+      <Toaster position="top-center" />
+
       <main className="app-main">
       <Routes>
         <Route path='/' element={user ? <Dashboard user={user} /> : <Landing />} />
