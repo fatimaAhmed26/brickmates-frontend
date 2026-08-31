@@ -13,9 +13,9 @@ const show = async (matchId) => {
     }
 }
 
-const update = async (matchId, data) => {
+const updateStep = async (matchId, data) => {
     try {
-        const res = await fetch(`${BASE_URL}/${matchId}`, {
+        const res = await fetch(`${BASE_URL}/${matchId}/step`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -31,5 +31,5 @@ const update = async (matchId, data) => {
 
 export {
     show,
-    update,
+    updateStep,
 }

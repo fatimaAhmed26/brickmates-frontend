@@ -22,7 +22,7 @@ const Nav = (props) => {
                             <Link to="/listings">Marketplace</Link>
                         </li>
                         <li>
-                            <Link to="/">Build Together</Link>
+                            <Link to="/build-together">Build Together</Link>
                         </li>
                         <li><Link to='/chat'>CHAT</Link></li>
                         <li><Link to="/messages">Direct Messages</Link></li>
