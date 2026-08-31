@@ -18,33 +18,54 @@ const VideoCall = () => {
 
   useEffect(() => {
     let videoClient;
+    let videoCall;
+    let cancelled = false;
 
     const setup = async () => {
-      const { token, apiKey, userId } = await videoService.getToken();
+      try {
+        const { token, apiKey, userId } = await videoService.getToken();
 
-      videoClient = new StreamVideoClient({
-        apiKey,
-        user: { id: userId },
-        token,
-      });
+        videoClient = new StreamVideoClient({
+          apiKey,
+          user: { id: userId },
+          token,
+        });
 
-      const videoCall = videoClient.call('default', callId);
-      await videoCall.join({ create: true });
+        videoCall = videoClient.call('default', callId);
 
-      setClient(videoClient);
-      setCall(videoCall);
+        await videoCall.join({ create: true });
+
+        if (cancelled) {
+          await videoCall.leave();
+          await videoClient.disconnectUser();
+          return;
+        }
+
+        setClient(videoClient);
+        setCall(videoCall);
+      } catch (error) {
+        console.error('Failed to join video call:', error);
+      }
     };
 
     setup();
 
     return () => {
-      call?.leave().catch(console.error);
-      videoClient?.disconnectUser().catch(console.error);
+      cancelled = true;
+
+      if (videoCall) {
+        videoCall.leave().catch(console.error);
+      }
+
+      if (videoClient) {
+        videoClient.disconnectUser().catch(console.error);
+      }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [callId]);
 
-  if (!client || !call) return <p>Connecting...</p>;
+  if (!client || !call) {
+    return <p>Connecting...</p>;
+  }
 
   return (
     <StreamVideo client={client}>

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router'
 import { show, updateStep } from '../services/buildmatch'
 import { index as getMessages } from '../services/message'
-
+import { Link } from "react-router"
 const BuildMatchPage = ({ user }) => {
     const { matchId } = useParams()
     const roomId = `match_${matchId}`
