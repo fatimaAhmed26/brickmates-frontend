@@ -33,7 +33,7 @@ const BuildDetails = ({ user }) => {
 
   const handleCommentSubmit = async (evt) => {
     evt.preventDefault();
-    await buildService.addComment(buildId, { content: commentText });
+    await buildService.addComment(buildId, { comment: commentText });
     setCommentText('');
     const buildData = await buildService.show(buildId);
     setBuild(buildData);
@@ -80,7 +80,7 @@ const BuildDetails = ({ user }) => {
       {build.comment?.map((c) => (
         <div key={c._id}>
           <p>
-            <strong>{c.author?.username}</strong>: {c.content}
+            <strong>{c.author?.username}</strong>: {c.comment}
           </p>
           {c.author?._id === user?._id && (
             <button onClick={() => handleCommentDelete(c._id)}>Delete</button>
