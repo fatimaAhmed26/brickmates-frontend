@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { create } from '../services/listing'
-import { search } from '../services/set'
+import { search, themes } from '../services/set'
 
 const ListingForm = () => { 
     const navigate = useNavigate()
@@ -59,6 +59,14 @@ const ListingForm = () => {
             listingFormData.append('price', formData.price)
             listingFormData.append('description', formData.description)
 
+            if (selectedSet.themeId) {
+            const themeList = await themes()
+            const matchedTheme = themeList.find((t) => t.id === selectedSet.themeId)
+            if (matchedTheme) {
+                listingFormData.append('theme', matchedTheme.name)
+            }
+        }
+        
             photos.forEach((photo) => {
                 listingFormData.append('photos', photo)
             })
