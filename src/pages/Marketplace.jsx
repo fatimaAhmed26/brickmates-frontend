@@ -4,6 +4,10 @@ import { index } from '../services/listing'
 
 const Marketplace = () => {
     const [listings, setListings] = useState([])
+    const [theme, setTheme] = useState('all')
+    const [condition, setCondition] = useState('all')
+    const [minPrice, setMinPrice] = useState('')
+    const [maxPrice, setMaxPrice] = useState('')
 
     useEffect(() => {
         const fetchListings = async () => {
@@ -12,6 +16,16 @@ const Marketplace = () => {
         }
         fetchListings()
     }, [])
+
+    const themes = ['all', ...new Set(listings.map((l) => l.theme).filter(Boolean))]
+
+    const filteredListings = listings.filter((listing) => {
+    if (theme !== 'all' && listing.theme !== theme) return false
+    if (condition !== 'all' && listing.condition !== condition) return false
+    if (minPrice && listing.price < Number(minPrice)) return false
+    if (maxPrice && listing.price > Number(maxPrice)) return false
+    return true
+})
 
 return (
         <div className="marketplace">
@@ -22,8 +36,35 @@ return (
                 </Link>
             </header>
 
+            <div className="marketplace-filters">
+                <select value={theme} onChange={(e) => setTheme(e.target.value)}>
+                    {themes.map((t) => (
+                        <option key={t} value={t}>{t === 'all' ? 'All themes' : t}</option>
+                    ))}
+                </select>
+
+                <select value={condition} onChange={(e) => setCondition(e.target.value)}>
+                    <option value="all">All conditions</option>
+                    <option value="built">Built</option>
+                    <option value="sealed">Sealed</option>
+                </select>
+
+                <input
+                    type="number"
+                    placeholder="Min price"
+                    value={minPrice}
+                    onChange={(e) => setMinPrice(e.target.value)}
+                />
+                <input
+                    type="number"
+                    placeholder="Max price"
+                    value={maxPrice}
+                    onChange={(e) => setMaxPrice(e.target.value)}
+                />
+            </div>
+
             <div className="listings-grid">
-                {listings.map((listing) => (
+                {filteredListings.map((listing) => (
                     <Link to={`/listings/${listing._id}`} key={listing._id}>
                         <div className="listing-card">
                             <div className="listing-image-wrap">
