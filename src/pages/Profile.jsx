@@ -119,13 +119,7 @@ const Profile = ({ user }) => {
                 </div>
             </div>
 
-            <div className="stat-card stat-yellow">
-                <div className="stat-icon">▣</div>
-                <div>
-                    <span>Est. Value</span>
-                    <strong>BHD 0</strong>
-                </div>
-            </div>
+            
 
             <div className="stat-card stat-gray">
                 <div className="stat-icon">⚒</div>
@@ -134,6 +128,14 @@ const Profile = ({ user }) => {
                     <strong>{builds.length}</strong>
                 </div>
             </div>
+<div className="stat-card stat-yellow">
+                <div className="stat-icon">▣</div>
+                <div>
+                    <span>For sale</span>
+                    <strong>{listings.filter((listing) => listing.status === 'available').length}</strong>
+                </div>
+            </div>
+
         </div>
 
         <nav className="profile-tabs">
