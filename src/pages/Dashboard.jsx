@@ -153,7 +153,7 @@ const Dashboard = ({ user }) => {
                             </div>
 
                             <div className="post-footer">
-                                <span>Like{build.likes?.length || 0}</span>
+                                <span>Like {build.like?.length || 0}</span>
                                 <span>comment {build.comment?.length || 0}</span>
                                 <span className="post-share">↗</span>
                             </div>
