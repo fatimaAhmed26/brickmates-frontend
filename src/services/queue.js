@@ -43,8 +43,22 @@ const status = async (queueId) => {
     }
 }
 
+const counts = async () => {
+    try {
+        const res = await fetch(`${BASE_URL}/counts`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        })
+        return res.json()
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 export {
     create,
     deleteQueue,
     status,
+    counts
 }
