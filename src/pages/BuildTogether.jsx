@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { search, show as showSet } from '../services/set'
-import { create, counts } from '../services/queue'
+import { create, counts, deleteQueue } from '../services/queue'
 import socket from '../socket'
 
 const BuildTogether = ({ user }) => {
     const navigate = useNavigate()
+    const [queueEntryId, setQueueEntryId] = useState(null)
 
     const [query, setQuery] = useState('')
     const [results, setResults] = useState([])
@@ -84,10 +85,21 @@ const BuildTogether = ({ user }) => {
         if (result.matched) {
             navigate(`/build-together/${result.match._id}`)
         } else {
+            setQueueEntryId(result.entry._id)
             setWaiting(true)
             setMessage('Waiting for another builder to join...')
         }
     }
+
+    const handleLeaveQueue = async () => {
+    if (queueEntryId) {
+        await deleteQueue(queueEntryId)
+    }
+    setQueueEntryId(null)
+    setWaiting(false)
+    setMessage('')
+    setSelectedSet(null)
+}
 
    return (
     <section className="build-together">
@@ -150,11 +162,14 @@ const BuildTogether = ({ user }) => {
         )}
 
         {waiting && (
-            <div className="waiting-state">
-                <p>Waiting for a match on <strong>{selectedSet?.name}</strong>...</p>
-            </div>
-        )}
-
+    <div className="waiting-state">
+        <p>Waiting for a match on <strong>{selectedSet?.name}</strong>...</p>
+        <button className="leave-queue-button" onClick={handleLeaveQueue}>
+            Leave Queue
+        </button>
+    </div>
+)}
+      {!waiting && (
         <div className="build-bottom-bar">
             <div className="selected-set-display">
                 <div className="selected-set-icon">◇</div>
@@ -172,6 +187,7 @@ const BuildTogether = ({ user }) => {
                 Join Queue <span>→</span>
             </button>
         </div>
+        )}
     </section>
 )
 }
