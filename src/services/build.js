@@ -7,9 +7,16 @@ const index = async () => {
     const res = await fetch(BASE_URL, {
       headers: { Authorization: `Bearer ${getToken()}` },
     });
-    return res.json();
+    const data = await res.json();
+
+    if (data.err) {
+      console.log(data.err);
+      throw new Error(data.err);
+    }
+
+    return data;
   } catch (err) {
-    console.log(err);
+    throw new Error(err);
   }
 };
 
@@ -18,9 +25,16 @@ const show = async (buildId) => {
     const res = await fetch(`${BASE_URL}/${buildId}`, {
       headers: { Authorization: `Bearer ${getToken()}` },
     });
-    return res.json();
+    const data = await res.json();
+
+    if (data.err) {
+      console.log(data.err);
+      throw new Error(data.err);
+    }
+
+    return data;
   } catch (err) {
-    console.log(err);
+    throw new Error(err);
   }
 };
 
@@ -31,9 +45,16 @@ const create = async (formData) => {
       headers: { Authorization: `Bearer ${getToken()}` },
       body: formData,
     });
-    return res.json();
+    const data = await res.json();
+
+    if (data.err) {
+      console.log(data.err);
+      throw new Error(data.err);
+    }
+
+    return data;
   } catch (err) {
-    console.log(err);
+    throw new Error(err);
   }
 };
 
@@ -44,9 +65,16 @@ const update = async (buildId, formData) => {
       headers: { Authorization: `Bearer ${getToken()}` },
       body: formData,
     });
-    return res.json();
+    const data = await res.json();
+
+    if (data.err) {
+      console.log(data.err);
+      throw new Error(data.err);
+    }
+
+    return data;
   } catch (err) {
-    console.log(err);
+    throw new Error(err);
   }
 };
 
@@ -56,9 +84,16 @@ const deleteBuild = async (buildId) => {
       method: 'DELETE',
       headers: { Authorization: `Bearer ${getToken()}` },
     });
-    return res.json();
+    const data = await res.json();
+
+    if (data.err) {
+      console.log(data.err);
+      throw new Error(data.err);
+    }
+
+    return data;
   } catch (err) {
-    console.log(err);
+    throw new Error(err);
   }
 };
 
@@ -68,9 +103,16 @@ const likeToggle = async (buildId) => {
       method: 'PUT',
       headers: { Authorization: `Bearer ${getToken()}` },
     });
-    return res.json();
+    const data = await res.json();
+
+    if (data.err) {
+      console.log(data.err);
+      throw new Error(data.err);
+    }
+
+    return data;
   } catch (err) {
-    console.log(err);
+    throw new Error(err);
   }
 };
 
@@ -84,9 +126,16 @@ const addComment = async (buildId, commentData) => {
       },
       body: JSON.stringify(commentData),
     });
-    return res.json();
+    const data = await res.json();
+
+    if (data.err) {
+      console.log(data.err);
+      throw new Error(data.err);
+    }
+
+    return data;
   } catch (err) {
-    console.log(err);
+    throw new Error(err);
   }
 };
 
@@ -96,9 +145,16 @@ const deleteComment = async (buildId, commentId) => {
       method: 'DELETE',
       headers: { Authorization: `Bearer ${getToken()}` },
     });
-    return res.json();
+    const data = await res.json();
+
+    if (data.err) {
+      console.log(data.err);
+      throw new Error(data.err);
+    }
+
+    return data;
   } catch (err) {
-    console.log(err);
+    throw new Error(err);
   }
 };
 
