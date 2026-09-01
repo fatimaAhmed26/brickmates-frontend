@@ -525,19 +525,12 @@ button:disabled {
 }
 
 .collection-card {
+    min-width: 0;
     overflow: hidden;
-
-    background: white;
-
-    border: 1px solid #e3e0de;
-    border-radius: 8px;
-
-    box-shadow:
-        0 4px 12px rgba(0, 0, 0, 0.05);
-
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+    background: #ffffff;
+    border: 1px solid #e1e1e1;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .collection-card:hover {
@@ -549,72 +542,81 @@ button:disabled {
 
 .collection-image {
     position: relative;
-
-    height: 225px;
-
+    width: 100%;
+    height: 210px;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+    background: #f7f7f7;
+    border-bottom: 1px solid #e5e5e5;
+}
 
-    background: #f1f2f2;
+.collection-image img {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    object-fit: contain;
 }
 
 .collection-badge {
     position: absolute;
-
-    top: 8px;
-    right: 8px;
-
-    padding: 4px 7px;
-
-    background: #2878b9;
-
-    border-radius: 3px;
-
-    color: white;
-
-    font-size: 9px;
-    font-weight: 800;
-    letter-spacing: 0.5px;
+    top: 12px;
+    left: 12px;
+    z-index: 1;
+    padding: 5px 8px;
+    border-radius: 5px;
+    background: #b0000b;
+    color: #ffffff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.4px;
 }
 
 .set-placeholder {
-    width: 70%;
-    height: 65%;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: #e8e9e9;
-
-    color: #b1b1b1;
-
-    font-size: 25px;
-    font-weight: 800;
-
-    border-radius: 3px;
-}
-
-.collection-body {
-    padding: 13px;
-}
-
-.collection-body h3 {
-    margin: 0 0 5px;
-
-    color: #363333;
-
-    font-size: 12px;
+    color: #999999;
+    font-size: 1rem;
     font-weight: 700;
 }
 
-.collection-body p {
-    margin: 0;
+.collection-body {
+    padding: 16px;
+}
 
-    color: #897a75;
+.collection-body h3 {
+    height: 44px;
+    margin: 0 0 5px;
+    color: #222222;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.35;
+    overflow: hidden;
+}
 
-    font-size: 10px;
+.collection-body > p {
+    margin: 0 0 14px;
+    color: #777777;
+    font-size: 0.8rem;
+}
+
+.btn-remove {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid #d7d7d7;
+    border-radius: 7px;
+    background: #ffffff;
+    color: #b0000b;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-remove:hover {
+    background: #fff3f3;
+    border-color: #b0000b;
 }
 
 .builds-grid {

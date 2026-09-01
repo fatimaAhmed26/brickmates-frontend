@@ -197,7 +197,7 @@ const Profile = ({ user }) => {
                                             <button
                                                 className="btn-remove"
                                                 onClick={() => handleRemoveFromCollection(set.setNum)}>
-                                                Remove from Collection
+                                                Remove
                                             </button>
                                         )}
                                     </div>
