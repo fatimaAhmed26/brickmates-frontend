@@ -30,7 +30,7 @@ const BuildList = () => {
               {build.theme} · {build.isMOC ? 'MOC' : 'Official set'} · {build.status}
             </p>
             <p>by {build.owner?.username}</p>
-            <p>{build.likes?.length || 0} likes</p>
+            <p>{build.like?.length || 0} likes</p>
           </div>
         </Link>
       ))}

@@ -24,12 +24,12 @@ const openModal = () => dialogRef.current?.showModal();
   if (!build) return <p>Loading...</p>;
 
   const isOwner = build.owner?._id === user?._id;
-  const isLiked = build.likes?.includes(user?._id);
+  const isLiked = build.like?.includes(user?._id);
 
-  const handleLike = async () => {
-    const updatedBuild = await buildService.likeToggle(buildId);
-    setBuild(updatedBuild);
-  };
+const handleLike = async () => {
+  const updatedBuild = await buildService.likeToggle(buildId);
+  setBuild(updatedBuild);
+};
 
   const handleDelete = async () => {
     await buildService.deleteBuild(buildId);
@@ -63,7 +63,7 @@ const openModal = () => dialogRef.current?.showModal();
       <p>by {build.owner?.username}</p>
 
       <button onClick={handleLike}>
-        {isLiked ? 'Unlike' : 'Like'} ({build.likes?.length || 0})
+        {isLiked ? 'Unlike' : 'Like'} ({build.like?.length || 0})
       </button>
 
       {isOwner && (
@@ -105,7 +105,5 @@ const openModal = () => dialogRef.current?.showModal();
     </div>
   );
 };
-//
+
 export default BuildDetails;
-
-
