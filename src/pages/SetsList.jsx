@@ -33,8 +33,8 @@ const SetsList = ({ user, setUser }) => {
     setUser(updatedUser)
 }
 
-const isInCollection = (setId) => {
-    return user?.collectionSetIds?.includes(setId)
+const isInCollection = (setNum) => {
+    return user?.collectionSetIds?.includes(setNum)
 }
 
    return (
@@ -58,10 +58,10 @@ const isInCollection = (setId) => {
           </Link>
 
           {user && (
-            <button onClick={() => handleAddToCollection(set._id)}>
-              {isInCollection(set._id) ? 'Remove from Collection' : 'Add to Collection'}
-            </button>
-          )}
+    <button onClick={() => handleAddToCollection(set.setNum)}>
+        {isInCollection(set.setNum) ? 'Remove from Collection' : 'Add to Collection'}
+    </button>
+)}
         </div>
       ))}
     </div>

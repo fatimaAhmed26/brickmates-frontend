@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link, useNavigate } from 'react-router'
-import { show, followToggle } from '../services/user'
+import { show, followToggle, collectionToggle } from '../services/user'
 import { index as indexListings } from '../services/listing'
 import { show as showSet } from '../services/set'
 
@@ -14,7 +14,7 @@ const Profile = ({ user }) => {
     const [activeTab, setActiveTab] = useState('builds')
     useEffect(() => {
     const fetchCollectionSets = async () => {
-        console.log('collectionSetIds:', profile?.collectionSetIds)  
+        
         if (!profile?.collectionSetIds || profile.collectionSetIds.length === 0) {
             setCollectionSets([])
             return
@@ -52,8 +52,12 @@ const Profile = ({ user }) => {
     if (!profile) return <p>Loading...</p>
 
     const isOwnProfile = user && user._id === profile._id
-    const isFollowing = profile.followerIds && profile.followerIds.includes(user?._id)
+    const isFollowing = profile.followers && profile.followers.includes(user?._id)
 
+    const handleRemoveFromCollection = async (setNum) => {
+    const updatedUser = await collectionToggle(profile._id, setNum)
+    setProfile(updatedUser)
+}
     return (
     <div className="profile">
         <header className="profile-header">
@@ -105,7 +109,8 @@ const Profile = ({ user }) => {
         </header>
 
         <div className="profile-stats">
-            <div className="stat-card stat-blue">
+            <div className="stat-card stat-blue" onClick={() => setActiveTab('collection')}
+             style={{ cursor: 'pointer' }}>
                 <div className="stat-icon">◇</div>
                 <div>
                     <span>Sets Owned</span>
@@ -115,21 +120,26 @@ const Profile = ({ user }) => {
                 </div>
             </div>
 
-            <div className="stat-card stat-yellow">
-                <div className="stat-icon">▣</div>
-                <div>
-                    <span>Est. Value</span>
-                    <strong>BHD 0</strong>
-                </div>
-            </div>
+            
 
-            <div className="stat-card stat-gray">
+            <div className="stat-card stat-gray" onClick={() => setActiveTab('builds')}
+               style={{ cursor: 'pointer' }} >
                 <div className="stat-icon">⚒</div>
                 <div>
                     <span>Builds Shared</span>
                     <strong>{builds.length}</strong>
                 </div>
             </div>
+            
+               <div className="stat-card stat-yellow" onClick={() => setActiveTab('forsale')}
+               style={{ cursor: 'pointer' }}>
+                <div className="stat-icon">▣</div>
+                <div>
+                    <span>For sale</span>
+                    <strong>{listings.filter((listing) => listing.status === 'available').length}</strong>
+                </div>
+            </div>
+
         </div>
 
         <nav className="profile-tabs">
@@ -167,8 +177,8 @@ const Profile = ({ user }) => {
     <div className="collection-card" key={set.setNum}>
         <div className="collection-image">
             <span className="collection-badge">COLLECTOR</span>
-            {set.imageUrl ? (
-                <img src={set.imageUrl} alt={set.name} />
+            {set.image ? (
+                <img src={set.image} alt={set.name} />
             ) : (
                 <div className="set-placeholder">LEGO</div>
             )}
@@ -176,6 +186,13 @@ const Profile = ({ user }) => {
         <div className="collection-body">
             <h3>{set.name || `Set ${set.setNum}`}</h3>
             <p>{set.setNum}</p>
+            {isOwnProfile && (
+        <button
+            className="btn-remove"
+            onClick={() => handleRemoveFromCollection(set.setNum)}>
+            Remove from Collection
+        </button>
+    )}
         </div>
     </div>
 ))}
