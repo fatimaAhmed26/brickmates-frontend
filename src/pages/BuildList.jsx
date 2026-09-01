@@ -14,26 +14,35 @@ const BuildList = () => {
   }, []);
 
   return (
-    <div>
-      <div>
+    <div className="builds-page">
+      <div className="builds-header">
         <h1>Builds</h1>
-        <Link to="/builds/new">Post a build</Link>
-      </div>
-      {builds.map((build) => (
-        <Link to={`/builds/${build._id}`} key={build._id}>
-          <div>
-            {build.image?.url && (
-              <img src={build.image.url} alt={build.caption} width="200" />
-            )}
-            <p>{build.caption}</p>
-            <p>
-              {build.theme} · {build.isMOC ? 'MOC' : 'Official set'} · {build.status}
-            </p>
-            <p>by {build.owner?.username}</p>
-            <p>{build.like?.length || 0} likes</p>
-          </div>
+        <Link to="/builds/new">
+          <button>Post a build</button>
         </Link>
-      ))}
+      </div>
+
+      <div className="builds-grid">
+        {builds.map((build) => (
+          <Link to={`/builds/${build._id}`} key={build._id} className="build-card">
+            <div className="build-image">
+              {build.image?.url ? (
+                <img src={build.image.url} alt={build.caption} />
+              ) : (
+                <div className="placeholder-img">No image</div>
+              )}
+            </div>
+            <div className="build-body">
+              <p className="build-caption">{build.caption}</p>
+              <p className="build-meta">
+                {build.theme} · {build.isMOC ? 'MOC' : 'Official set'} · {build.status}
+              </p>
+              <p className="build-owner">by {build.owner?.username}</p>
+              <p className="build-likes">♥ {build.like?.length || 0}</p>
+            </div>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 };

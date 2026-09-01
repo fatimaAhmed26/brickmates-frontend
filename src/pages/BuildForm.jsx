@@ -4,7 +4,6 @@ import * as buildService from '../services/build';
 import * as set from '../services/set';
 import toast from 'react-hot-toast'
 
-
 const BuildForm = () => {
   const navigate = useNavigate();
   const [themes, setThemes] = useState([]);
@@ -19,12 +18,12 @@ const BuildForm = () => {
 
   useEffect(() => {
     const fetchThemes = async () => {
-      const themesData = await set.themes();      
+      const themesData = await set.themes();
       setThemes(themesData);
     };
     fetchThemes();
   }, []);
- 
+
   const handleChange = (evt) => {
     const { name, value, type, checked } = evt.target;
     setFormData({
@@ -50,83 +49,85 @@ const BuildForm = () => {
 
     const build = await buildService.create(data);
     if (build.err) {
-    toast.error(build.err)
-    return
-  }
+      toast.error(build.err)
+      return
+    }
 
-  toast.success('Build posted!')
+    toast.success('Build posted!')
     navigate(`/builds/${build._id}`);
   };
 
   return (
-    <div>
-      <h1>Post a build</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="theme">Theme</label>
-        <select
-          id="theme"
-          name="theme"
-          value={formData.theme}
-          onChange={handleChange}
-          required
-        >
-          <option value="">Select a theme</option>
-          {themes.map((theme) => (
-            <option key={theme.id} value={theme.name}>
-              {theme.name}
-            </option>
-          ))}
-        </select>
+    <div className="form-page">
+      <div className="card">
+        <header><h1>Post a build</h1></header>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="theme">Theme</label>
+          <select
+            id="theme"
+            name="theme"
+            value={formData.theme}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select a theme</option>
+            {themes.map((theme) => (
+              <option key={theme.id} value={theme.name}>
+                {theme.name}
+              </option>
+            ))}
+          </select>
 
-        <label>
-          <input
-            type="checkbox"
-            name="isMOC"
-            checked={formData.isMOC}
+          <label className="checkbox-label">
+            <input
+              type="checkbox"
+              name="isMOC"
+              checked={formData.isMOC}
+              onChange={handleChange}
+            />
+            This is a MOC (My Own Creation)
+          </label>
+
+          <label htmlFor="status">Status</label>
+          <select
+            id="status"
+            name="status"
+            value={formData.status}
+            onChange={handleChange}
+          >
+            <option value="in progress">In progress</option>
+            <option value="completed">Completed</option>
+          </select>
+
+          <label htmlFor="caption">Caption</label>
+          <textarea
+            id="caption"
+            name="caption"
+            value={formData.caption}
             onChange={handleChange}
           />
-          This is a MOC (My Own Creation)
-        </label>
 
-        <label htmlFor="status">Status</label>
-        <select
-          id="status"
-          name="status"
-          value={formData.status}
-          onChange={handleChange}
-        >
-          <option value="in progress">In progress</option>
-          <option value="completed">Completed</option>
-        </select>
+          <label htmlFor="timeTaken">Time taken (minutes)</label>
+          <input
+            type="number"
+            id="timeTaken"
+            name="timeTaken"
+            value={formData.timeTaken}
+            onChange={handleChange}
+          />
 
-        <label htmlFor="caption">Caption</label>
-        <textarea
-          id="caption"
-          name="caption"
-          value={formData.caption}
-          onChange={handleChange}
-        />
+          <label htmlFor="image">Photo</label>
+          <input
+            type="file"
+            id="image"
+            name="image"
+            accept="image/*"
+            onChange={handleFileChange}
+          />
 
-        <label htmlFor="timeTaken">Time taken (minutes)</label>
-        <input
-          type="number"
-          id="timeTaken"
-          name="timeTaken"
-          value={formData.timeTaken}
-          onChange={handleChange}
-        />
-
-        <label htmlFor="image">Photo</label>
-        <input
-          type="file"
-          id="image"
-          name="image"
-          accept="image/*"
-          onChange={handleFileChange}
-        />
-
-        <button type="submit">Post build</button>
-      </form>
+          <button type="submit">Post build</button>
+        </form>
+      </div>
     </div>
   );
 };
