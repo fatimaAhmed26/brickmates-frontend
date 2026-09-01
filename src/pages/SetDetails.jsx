@@ -31,12 +31,17 @@ const SetDetails = ({ user, setUser }) => {
   }
 
   return (
-    <div>
-      <img src={set.image} alt={set.name} />
+    <div className="set-details">
+      <div className="set-details-image">
+        <img src={set.image} alt={set.name} />
+      </div>
       <h2>{set.name}</h2>
-      <p>{set.theme} · {set.year} · {set.pieceCount} pieces</p>
+      <p className="set-details-meta">{set.theme} · {set.year} · {set.pieceCount} pieces</p>
       {user && (
-        <button onClick={handleOwnToggle}>
+        <button
+          className={`own-btn ${isOwned ? 'owned' : ''}`}
+          onClick={handleOwnToggle}
+        >
           {isOwned ? 'Owned ✓ (remove)' : 'Own it'}
         </button>
       )}
