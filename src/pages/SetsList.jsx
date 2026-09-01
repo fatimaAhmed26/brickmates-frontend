@@ -27,9 +27,7 @@ const SetsList = ({ user, setUser }) => {
     setSets(results)
   }
 
-  const handleOwnToggle = async (evt, setNum) => {
-    evt.preventDefault()
-    evt.stopPropagation()
+  const handleOwnToggle = async (setNum) => {
     const updatedUser = await collectionToggle(user._id, setNum)
     setUser(updatedUser)
     toast.success(
@@ -54,16 +52,18 @@ const SetsList = ({ user, setUser }) => {
       {sets.map((set) => {
         const isOwned = user?.collectionSetIds?.includes(set.setNum)
         return (
-          <Link to={`/sets/${set.setNum}`} key={set.setNum}>
-            <img src={set.image} alt={set.name} />
-            <h3>{set.name}</h3>
-            <p>{set.theme} · {set.year} · {set.pieceCount} pieces</p>
+          <div key={set.setNum}>
+            <Link to={`/sets/${set.setNum}`}>
+              <img src={set.image} alt={set.name} />
+              <h3>{set.name}</h3>
+              <p>{set.theme} · {set.year} · {set.pieceCount} pieces</p>
+            </Link>
             {user && (
-              <button onClick={(evt) => handleOwnToggle(evt, set.setNum)}>
+              <button onClick={() => handleOwnToggle(set.setNum)}>
                 {isOwned ? 'Owned ✓' : 'Own it'}
               </button>
             )}
-          </Link>
+          </div>
         )
       })}
     </div>
