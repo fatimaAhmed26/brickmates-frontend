@@ -28,7 +28,7 @@ const Dashboard = (props) => {
             </header>
 
             <div className="builders-grid">
-                {allUsers.slice(0, 3).map((user) => (
+                {allUsers.slice(0, 4).map((user) => (
                     <Link
                         to={`/profile/${user._id}`}
                         key={user._id}

@@ -14,7 +14,7 @@ const Profile = ({ user }) => {
     const [activeTab, setActiveTab] = useState('builds')
     useEffect(() => {
     const fetchCollectionSets = async () => {
-        console.log('collectionSetIds:', profile?.collectionSetIds)  
+        
         if (!profile?.collectionSetIds || profile.collectionSetIds.length === 0) {
             setCollectionSets([])
             return
@@ -52,7 +52,7 @@ const Profile = ({ user }) => {
     if (!profile) return <p>Loading...</p>
 
     const isOwnProfile = user && user._id === profile._id
-    const isFollowing = profile.followerIds && profile.followerIds.includes(user?._id)
+    const isFollowing = profile.followers && profile.followers.includes(user?._id)
 
     const handleRemoveFromCollection = async (setNum) => {
     const updatedUser = await collectionToggle(profile._id, setNum)
@@ -109,7 +109,8 @@ const Profile = ({ user }) => {
         </header>
 
         <div className="profile-stats">
-            <div className="stat-card stat-blue">
+            <div className="stat-card stat-blue" onClick={() => setActiveTab('collection')}
+             style={{ cursor: 'pointer' }}>
                 <div className="stat-icon">◇</div>
                 <div>
                     <span>Sets Owned</span>
@@ -121,14 +122,17 @@ const Profile = ({ user }) => {
 
             
 
-            <div className="stat-card stat-gray">
+            <div className="stat-card stat-gray" onClick={() => setActiveTab('builds')}
+               style={{ cursor: 'pointer' }} >
                 <div className="stat-icon">⚒</div>
                 <div>
                     <span>Builds Shared</span>
                     <strong>{builds.length}</strong>
                 </div>
             </div>
-<div className="stat-card stat-yellow">
+            
+               <div className="stat-card stat-yellow" onClick={() => setActiveTab('forsale')}
+               style={{ cursor: 'pointer' }}>
                 <div className="stat-icon">▣</div>
                 <div>
                     <span>For sale</span>
