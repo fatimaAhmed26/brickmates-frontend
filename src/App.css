@@ -2488,59 +2488,7 @@ button:disabled {
   color: #604d48;
 }
 
-/* MESSAGE INPUT */
 
-.message-form {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  width: 340px;
-  display: flex;
-  gap: 8px;
-  padding: 12px 14px;
-  background: #ffffff;
-  border-top: 1px solid #dedede;
-  box-sizing: border-box;
-}
-
-.message-form input {
-  flex: 1;
-  min-width: 0;
-  height: 42px;
-  padding: 0 14px;
-  border: 1px solid #dedede;
-  border-radius: 22px;
-  background: #f5f6f7;
-  color: #333333;
-  font-size: 0.85rem;
-  box-sizing: border-box;
-}
-
-.message-form input:focus {
-  outline: none;
-  border-color: #c9a5a5;
-}
-
-.message-form button {
-  width: 55px;
-  height: 42px;
-  border: none;
-  border-radius: 22px;
-  background: #b0000b;
-  color: #ffffff;
-  font-size: 0.75rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.message-form button:hover:not(:disabled) {
-  background: #920009;
-}
-
-.message-form button:disabled {
-  background: #cccccc;
-  cursor: not-allowed;
-}
 
 /* RESPONSIVE */
 
@@ -2575,3 +2523,4 @@ button:disabled {
     width: 100%;
   }
 }
+
