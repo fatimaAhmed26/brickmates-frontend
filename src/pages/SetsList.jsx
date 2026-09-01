@@ -66,7 +66,7 @@ const SetsList = ({ user, setUser }) => {
                   className={`own-btn ${isOwned ? 'owned' : ''}`}
                   onClick={(evt) => handleOwnToggle(evt, set.setNum)}
                 >
-                  {isOwned ? 'Owned ✓' : 'Own it'}
+                  {isOwned ? 'In collection ✓' : 'Add'}
                 </button>
               )}
             </div>
