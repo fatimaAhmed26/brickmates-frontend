@@ -269,6 +269,9 @@ const Profile = ({ user }) => {
                                             <span className="listing-badge">
                                                 {listing.condition}
                                             </span>
+                                            <span className='listing-status'>
+                                                {listing.status}
+                                            </span>
                                         </div>
 
                                         <div className="listing-body">
@@ -277,9 +280,15 @@ const Profile = ({ user }) => {
                                                     listing.setNum}
                                             </h3>
 
+                                            <p className="listing-set-number">
+                                             {listing.setNum}
+                                             </p>
+
                                             <p className="listing-price">
                                                 BHD {listing.price}
                                             </p>
+
+
                                         </div>
                                     </div>
                                 </Link>
