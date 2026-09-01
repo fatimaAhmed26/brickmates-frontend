@@ -1732,3 +1732,265 @@ button:disabled {
 .leave-queue-button:hover {
     background: #fef2f2;
 }
+
+.build-match {
+  width: 100%;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  grid-template-rows: 68px 1fr;
+  background: #f7f8f9;
+  color: #242424;
+  box-sizing: border-box;
+}
+
+.match-header {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 0 30px;
+  background: #ffffff;
+  border-bottom: 1px solid #dedede;
+  box-sizing: border-box;
+}
+
+.match-header h1 {
+  margin: 0;
+  color: #b0000b;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.match-header p {
+  margin: 0;
+  color: #654f49;
+  font-size: 0.78rem;
+}
+
+.match-header a {
+  margin-left: auto;
+  padding: 9px 16px;
+  border-radius: 20px;
+  background: #eeeeee;
+  color: #333333;
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.match-header a:hover {
+  background: #e4e4e4;
+}
+
+/* BUILD AREA */
+
+.checklist {
+  grid-column: 1;
+  grid-row: 2;
+  margin: 18px;
+  padding: 28px;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #eceeef;
+  border: 1px solid #dedede;
+  border-radius: 15px;
+  box-sizing: border-box;
+}
+
+.step-row {
+  width: min(700px, 100%);
+  margin: 10px auto;
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+
+.step-row span {
+  min-width: 80px;
+  color: #654f49;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.step-row p {
+  flex: 1;
+  margin: 0;
+  color: #222222;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.step-row button {
+  width: 38px;
+  height: 38px;
+  border: 1px solid #dddddd;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #333333;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.step-row button:hover {
+  background: #f1f1f1;
+}
+
+/* CHAT SIDEBAR */
+
+.chat-messages {
+  grid-column: 2;
+  grid-row: 2;
+  min-height: 0;
+  padding: 22px 18px 80px;
+  overflow-y: auto;
+  background: #ffffff;
+  border-left: 1px solid #dedede;
+  box-sizing: border-box;
+}
+
+.chat-messages > p {
+  margin: 25px 10px;
+  color: #777777;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.message {
+  width: 85%;
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  border-radius: 17px;
+  box-sizing: border-box;
+}
+
+.message strong {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.message p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.message-sent {
+  margin-left: auto;
+  background: #b0000b;
+  color: #ffffff;
+  border-bottom-right-radius: 5px;
+}
+
+.message-sent strong {
+  display: none;
+}
+
+.message-received {
+  margin-right: auto;
+  background: #eeeeef;
+  color: #292929;
+  border-bottom-left-radius: 5px;
+}
+
+.message-received strong {
+  color: #604d48;
+}
+
+/* MESSAGE INPUT */
+
+.message-form {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width: 340px;
+  display: flex;
+  gap: 8px;
+  padding: 12px 14px;
+  background: #ffffff;
+  border-top: 1px solid #dedede;
+  box-sizing: border-box;
+}
+
+.message-form input {
+  flex: 1;
+  min-width: 0;
+  height: 42px;
+  padding: 0 14px;
+  border: 1px solid #dedede;
+  border-radius: 22px;
+  background: #f5f6f7;
+  color: #333333;
+  font-size: 0.85rem;
+  box-sizing: border-box;
+}
+
+.message-form input:focus {
+  outline: none;
+  border-color: #c9a5a5;
+}
+
+.message-form button {
+  width: 55px;
+  height: 42px;
+  border: none;
+  border-radius: 22px;
+  background: #b0000b;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.message-form button:hover:not(:disabled) {
+  background: #920009;
+}
+
+.message-form button:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 800px) {
+  .build-match {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  .match-header {
+    min-height: 68px;
+  }
+
+  .match-header p {
+    display: none;
+  }
+
+  .checklist {
+    min-height: 350px;
+    margin: 12px;
+  }
+
+  .chat-messages {
+    min-height: 350px;
+    border-left: none;
+    border-top: 1px solid #dedede;
+  }
+
+  .message-form {
+    position: fixed;
+    width: 100%;
+  }
+}
