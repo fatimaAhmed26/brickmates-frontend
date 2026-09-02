@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { index } from '../services/user'
+import { index, followToggle } from '../services/user'
 import { index as indexBuilds } from '../services/build'
 import { Link } from "react-router"
 
@@ -29,12 +29,12 @@ const Dashboard = ({ user }) => {
     const [allUsers, setAllUsers] = useState([])
     const [builds, setBuilds] = useState([])
 
-    useEffect(() => {
-        const fetchUsers = async () => {
-            const usersData = await index()
-            setAllUsers(usersData)
-        }
+    const fetchUsers = async () => {
+        const usersData = await index()
+        setAllUsers(usersData)
+    }
 
+    useEffect(() => {
         fetchUsers()
     }, [])
 
@@ -52,6 +52,20 @@ const Dashboard = ({ user }) => {
         fetchBuilds()
     }, [])
 
+    const handleFollow = async (event, builderId) => {
+        event.preventDefault()
+        event.stopPropagation()
+
+        await followToggle(builderId)
+        fetchUsers()
+    }
+
+    const isFollowing = (builder) => {
+        return builder.followers && builder.followers.includes(user?._id)
+    }
+
+    const topBuilders = allUsers.filter((builder) => builder._id !== user?._id).slice(0, 3)
+
     return (
         <section className="dashboard">
             <header className="dashboard-header">
@@ -66,7 +80,7 @@ const Dashboard = ({ user }) => {
             </header>
 
             <div className="builders-grid">
-                {allUsers.slice(0, 3).map((builder) => (
+                {topBuilders.map((builder) => (
                     <Link
                         to={`/profile/${builder._id}`}
                         key={builder._id}
@@ -84,7 +98,14 @@ const Dashboard = ({ user }) => {
 
                             <p>{builder.bio}</p>
 
-                            <button className="follow-btn">Follow</button>
+                            {user && builder._id !== user._id && (
+                                <button
+                                    className="follow-btn"
+                                    onClick={(event) => handleFollow(event, builder._id)}
+                                >
+                                    {isFollowing(builder) ? 'Unfollow' : 'Follow'}
+                                </button>
+                            )}
                         </div>
                     </Link>
                 ))}
