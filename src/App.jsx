@@ -45,7 +45,7 @@ const App = () => {
 
       <main className="app-main">
       <Routes>
-        <Route path='/' element={user ? <Dashboard user={user} /> : <Landing />} />
+        <Route path='/' element={user ? <Dashboard user={user} setUser={setUser}/> : <Landing />} />
         <Route path='/sign-up' element={<SignUpForm setUser={setUser} />} />
         <Route path='/sign-in' element={<SignInForm setUser={setUser} />} />
         <Route path='/profile/:userId' element={user ? <Profile user={user} /> : <Landing />} />
