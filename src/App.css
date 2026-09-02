@@ -2904,3 +2904,59 @@ button:disabled {
 .auth-switch a:hover {
     text-decoration: underline;
 }
+
+.profile-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.profile-edit-form label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #555;
+  margin-top: 4px;
+}
+
+.profile-edit-form input,
+.profile-edit-form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: white;
+  font-family: inherit;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+}
+
+.profile-edit-form input:focus,
+.profile-edit-form textarea:focus {
+  outline: none;
+  border-color: #b00012;
+}
+
+.profile-edit-form textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.profile-edit-form input[type="file"] {
+  padding: 8px;
+  background: #fafafa;
+  font-size: 0.85rem;
+}
+
+.profile-edit-form p {
+  margin: 2px 0;
+  color: #b00012;
+  font-size: 0.85rem;
+}
+
+.profile-edit-form .profile-actions {
+  margin-top: 8px;
+  display: flex;
+  gap: 10px;
+}
