@@ -25,30 +25,55 @@ const SignInForm = (props) => {
             const signedInUser = await signIn(formData)
             props.setUser(signedInUser)
             setFormData(initialState)
-                toast.success(`Welcome back, ${user.username}!`)
+            toast.success(`Welcome back, ${signedInUser.username}!`)
 
             navigate('/')
         } catch(err) {
-                toast.error(err.message || 'Sign in failed')
-
+            setMessage(err.message)
+            toast.error(err.message || 'Sign in failed')
         }
     }
 
     return(
-        <section className="card">
-            <header>
-            <h1>Sign In</h1>
-            <p className="error">{message}</p>
+        <section className="auth-card">
+            <header className="auth-header">
+                <h1>Sign In</h1>
+                <p className="auth-message">{message}</p>
             </header>
 
-            <form onSubmit={handleSubmit}>
-                Username:
-                <input type="text" name="username" value={formData.username} required onChange={handleChange} />
-                Password:
-                <input type="password" name="password" value={formData.password} required onChange={handleChange} />
-                <div className="actions">
-                    <button type="submit">Sign In</button>
-                    <button type="button" onClick={() => navigate('/')}>Cancel</button>
+            <form className="auth-form" onSubmit={handleSubmit}>
+                <label className="auth-label">Username</label>
+                <input
+                    className="auth-input"
+                    type="text"
+                    name="username"
+                    value={formData.username}
+                    required
+                    onChange={handleChange}
+                />
+
+                <label className="auth-label">Password</label>
+                <input
+                    className="auth-input"
+                    type="password"
+                    name="password"
+                    value={formData.password}
+                    required
+                    onChange={handleChange}
+                />
+
+                <div className="auth-actions">
+                    <button className="auth-btn-primary" type="submit">
+                        Sign In
+                    </button>
+
+                    <button
+                        className="auth-btn-secondary"
+                        type="button"
+                        onClick={() => navigate('/')}
+                    >
+                        Cancel
+                    </button>
                 </div>
             </form>
         </section>
