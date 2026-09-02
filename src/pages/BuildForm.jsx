@@ -116,14 +116,14 @@ const BuildForm = () => {
             onChange={handleChange}
           />
 
-          <label htmlFor="image">Photo</label>
-          <input
-            type="file"
-            id="image"
-            name="image"
-            accept="image/*"
-            onChange={handleFileChange}
-          />
+        <label htmlFor="image">Photo or video</label>
+        <input
+          type="file"
+          id="image"
+          name="image"
+          accept="image/*,video/*"
+          onChange={handleFileChange}
+        />
 
           <button type="submit">Post build</button>
         </form>

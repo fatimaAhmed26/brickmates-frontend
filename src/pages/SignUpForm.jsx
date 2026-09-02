@@ -25,7 +25,7 @@ const SignUpForm = (props) => {
         try {
             const newUser = await signUp(formData)
             props.setUser(newUser)
-            setFormData(initialState)
+            setFormData(newUser)
                 toast.success(` HIIII!!!, ${user.username}!`)
 
             navigate('/')

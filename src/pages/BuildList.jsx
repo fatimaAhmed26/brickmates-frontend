@@ -27,9 +27,13 @@ const BuildList = () => {
           <Link to={`/builds/${build._id}`} key={build._id} className="build-card">
             <div className="build-image">
               {build.image?.url ? (
-                <img src={build.image.url} alt={build.caption} />
+                build.image.type === 'video' ? (
+                  <video src={build.image.url} muted loop playsInline />
+                ) : (
+                  <img src={build.image.url} alt={build.caption} />
+                )
               ) : (
-                <div className="placeholder-img">No image</div>
+                <div className="placeholder-img">No media</div>
               )}
             </div>
             <div className="build-body">

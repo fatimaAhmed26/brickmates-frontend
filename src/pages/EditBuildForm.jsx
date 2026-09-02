@@ -132,12 +132,12 @@ const EditBuildForm = () => {
             onChange={handleChange}
           />
 
-          <label htmlFor="image">Replace photo</label>
+          <label htmlFor="image">Replace photo or video</label>
           <input
             type="file"
             id="image"
             name="image"
-            accept="image/*"
+            accept="image/*,video/*"
             onChange={handleFileChange}
           />
 
