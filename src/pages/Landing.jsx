@@ -41,13 +41,7 @@ const Landing = () => {
   loop
   autoplay
 ></lottie-player>
-                    <div className="featured-badge">
-                        {/* <div className="featured-icon">📐</div> */}
-                        <div>
-                            {/* <span>Featured MOC</span>
-                            <h3>Desert Oasis Pavilion</h3> */}
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
 
