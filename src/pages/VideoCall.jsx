@@ -62,14 +62,13 @@ const VideoCall = () => {
     setup();
 
     return () => {
-      videoCall?.leave().catch(console.log);
+      videoCall?.leave().catch(() => {});
       videoClient?.disconnectUser().catch(console.log);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [callId]);
 
-  const handleLeave = async () => {
-    await call.leave();
+  const handleLeave = () => {
     toast('You left the call');
     navigate(-1);
   };
