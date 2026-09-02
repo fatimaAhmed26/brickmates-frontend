@@ -24,6 +24,7 @@ import EditBuildForm from "./pages/EditBuildForm"
 import BuildMatchPage from "./pages/BuildMatchPage"
 import VideoCall from "./pages/VideoCall"
 import { Toaster } from 'react-hot-toast'
+import UsersList from "./pages/UserList"
 
 
 const getUserFromToken = () => {
@@ -69,6 +70,8 @@ const App = () => {
         <Route path='/builds/:buildId/edit' element={user ? <EditBuildForm /> : <Landing />} />
         <Route path='/build-together/:matchId' element={user ? <BuildMatchPage user={user} /> : <Landing />} />
         <Route path='/call/:callId' element={user ? <VideoCall /> : <Landing />} />
+
+        <Route path='/users' element={user ? <UsersList user={user} setUser={setUser} /> : <Landing />} />
         
       </Routes>
       </main>
