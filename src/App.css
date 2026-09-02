@@ -2766,7 +2766,7 @@ button:disabled {
     .landing-hero {
         flex-direction: column;
         text-align: center;
-    }
+    }}
 
     .landing-logo {
         justify-content: center;
