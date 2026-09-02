@@ -80,6 +80,8 @@ const Profile = ({ user }) => {
                 <div className="profile-info">
                     <h1>{profile.username}</h1>
 
+       
+
                     {profile.location && (
                         <p className="profile-location">
                             {profile.location}
@@ -91,7 +93,10 @@ const Profile = ({ user }) => {
                             {profile.bio}
                         </p>
                     )}
-
+             <div className="profile-follow-counts">
+        <span><strong>{profile.followers?.length || 0}</strong> Followers</span>
+        <span><strong>{profile.following?.length || 0}</strong> Following</span>
+    </div>
                     <div className="profile-actions">
                         {isOwnProfile ? (
                             <Link to="/profile/edit">
