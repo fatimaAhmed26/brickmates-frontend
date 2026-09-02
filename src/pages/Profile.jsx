@@ -4,6 +4,7 @@ import { show, update, followToggle, collectionToggle } from '../services/user'
 import { index as indexListings } from '../services/listing'
 import { index as indexBuilds } from '../services/build'
 import { show as showSet } from '../services/set'
+import { HeartIcon, ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline'
 
 const Profile = ({ user }) => {
     const { userId } = useParams()
@@ -370,35 +371,42 @@ return (
         )}
 
         {activeTab === 'builds' && (
-            <section className="profile-section">
-                {builds.length === 0 ? (
-                    <p className="empty-state">
-                        No builds posted yet.
-                    </p>
-                ) : (
-                    <div className="builds-grid">
-                        {builds.map((build) => (
-                            <Link
-                                to={`/builds/${build._id}`}
-                                className="build-thumb"
-                                key={build._id}
-                            >
-                                {build.image?.url ? (
-                                    <img
-                                        src={build.image.url}
-                                        alt={build.caption}
-                                    />
-                                ) : (
-                                    <div className="placeholder-img">
-                                        No image
-                                    </div>
-                                )}
-                            </Link>
-                        ))}
-                    </div>
-                )}
-            </section>
+    <section className="profile-section">
+        {builds.length === 0 ? (
+            <p className="empty-state">
+                No builds posted yet.
+            </p>
+        ) : (
+            <div className="builds-grid">
+                {builds.map((build) => (
+                    <Link
+                        to={`/builds/${build._id}`}
+                        className="build-card"
+                        key={build._id}
+                    >
+                        <div className="build-thumb">
+                            {build.image?.url ? (
+                                <img
+                                    src={build.image.url}
+                                    alt={build.caption}
+                                />
+                            ) : (
+                                <div className="placeholder-img">
+                                    No image
+                                </div>
+                            )}
+                        </div>
+
+                        <div className="build-info">
+                            <span>♡ {build.likes?.length || 0}</span>
+                            <span>💬 {build.comments?.length || 0}</span>
+                        </div>
+                    </Link>
+                ))}
+            </div>
         )}
+    </section>
+)}
 
         {activeTab === 'forsale' && (
             <section className="profile-section">
