@@ -7,20 +7,40 @@ import { collectionToggle } from '../services/user'
 const SetsList = ({ user, setUser }) => {
   const [sets, setSets] = useState([])
   const [query, setQuery] = useState('')
+  const [page, setPage] = useState(1)
+  const [hasMore, setHasMore] = useState(false)
+  const [loadingMore, setLoadingMore] = useState(false)
 
   useEffect(() => {
     const timeoutId = setTimeout(async () => {
       if (!query.trim()) {
-        const setsData = await setService.index()
-        setSets(setsData)
+        const data = await setService.index(1)
+        setSets(data.results)
+        setHasMore(data.hasMore)
+        setPage(1)
         return
       }
-      const results = await setService.search(query)
-      setSets(results)
+      const data = await setService.search(query, 1)
+      setSets(data.results)
+      setHasMore(data.hasMore)
+      setPage(1)
     }, 400)
 
     return () => clearTimeout(timeoutId)
   }, [query])
+
+  const handleLoadMore = async () => {
+    setLoadingMore(true)
+    const nextPage = page + 1
+    const data = query.trim()
+      ? await setService.search(query, nextPage)
+      : await setService.index(nextPage)
+
+    setSets((prev) => [...prev, ...data.results])
+    setHasMore(data.hasMore)
+    setPage(nextPage)
+    setLoadingMore(false)
+  }
 
   const handleOwnToggle = async (evt, setNum) => {
     evt.preventDefault()
@@ -73,6 +93,14 @@ const SetsList = ({ user, setUser }) => {
           )
         })}
       </div>
+
+      {hasMore && (
+        <div className="load-more-wrap">
+          <button className="load-more-btn" onClick={handleLoadMore} disabled={loadingMore}>
+            {loadingMore ? 'Loading...' : 'Load More Sets'}
+          </button>
+        </div>
+      )}
     </div>
   )
 }
