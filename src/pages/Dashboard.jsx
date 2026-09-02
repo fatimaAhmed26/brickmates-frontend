@@ -64,6 +64,8 @@ const Dashboard = ({ user }) => {
         return builder.followers && builder.followers.includes(user?._id)
     }
 
+    const topBuilders = allUsers.filter((builder) => builder._id !== user?._id).slice(0, 3)
+
     return (
         <section className="dashboard">
             <header className="dashboard-header">
@@ -78,7 +80,7 @@ const Dashboard = ({ user }) => {
             </header>
 
             <div className="builders-grid">
-                {allUsers.slice(0, 3).map((builder) => (
+                {topBuilders.map((builder) => (
                     <Link
                         to={`/profile/${builder._id}`}
                         key={builder._id}
