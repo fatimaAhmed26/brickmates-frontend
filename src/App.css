@@ -1963,33 +1963,58 @@ button:disabled {
     background: transparent;
 }
 
-.comment-form {
+.build-details-page .comment-form {
     display: flex;
+    flex-direction: row;
     align-items: center;
     gap: 10px;
+    width: 100%;
     padding-top: 14px;
-    border-top: 1px solid var(--color-border);
     margin-top: auto;
+    border-top: 1px solid var(--color-border);
+    box-sizing: border-box;
 }
 
-.comment-form input {
-    flex: 1;
+.build-details-page .comment-form .comment-avatar {
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    max-width: 30px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.build-details-page .comment-form input {
+    display: block;
+    flex: 1 1 auto;
+    width: 0;
+    min-width: 0;
+    height: 40px;
+    margin: 0;
     padding: 10px 14px;
-    border-radius: 20px;
+    box-sizing: border-box;
     border: 1px solid var(--color-border);
+    border-radius: 20px;
     font-size: 13.5px;
 }
 
-.comment-form input:focus {
-    outline: 2px solid var(--color-primary-soft);
-    border-color: var(--color-primary);
-}
-
-.comment-form button {
+.build-details-page .comment-form button {
+    display: block;
+     background: #b00012;
+    color: white;
+    flex: 0 0 auto;
+    width: auto;
+    min-width: 0;
+    height: 40px;
+    margin: 0;
     padding: 8px 18px;
     border-radius: 20px;
     font-size: 13px;
-    width: auto;
+}
+
+.build-details-page .comment-form button:hover:not(:disabled) {
+    background: #8f000f;
 }
 
 @media (max-width: 800px) {

@@ -57,7 +57,8 @@ const ListingForm = () => {
         }
 
         const data = await search(value)
-        setResults(data)
+       
+        setResults(data.results)
     }
 
     const handleSubmit = async (event) => {
