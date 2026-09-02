@@ -2748,42 +2748,44 @@ button:disabled {
 }
 
 .landing-footer {
-    background: #f3f4f6;
-    padding: 32px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 20px;
+    width: 100%;
+    padding: 32px 40px;
+    box-sizing: border-box;
+    background: #e5e4e4;
+    border-top: 1px solid var(--color-border);
+}
+
+.footer-brand {
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .footer-brand h3 {
-    font-size: 18px;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin-bottom: 8px;
+    margin: 0 0 8px;
+    color: #b00012;
+    font-size: 1.3rem;
+    font-weight: 800;
 }
 
 .footer-brand p {
-    font-size: 13px;
-    color: #6b7280;
-    margin: 2px 0;
+    margin: 4px 0;
+    color: #777;
+    font-size: 0.8rem;
+    line-height: 1.5;
 }
 
-.footer-links {
-    display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
+.footer-brand p:last-child {
+    color: #999;
 }
 
-.footer-links a {
-    font-size: 13px;
-    color: #4b5563;
-    text-decoration: underline;
-}
+@media (max-width: 600px) {
+    .landing-footer {
+        padding: 28px 20px;
+    }
 
-.footer-links a:hover {
-    color: #1a1a1a;
+    .footer-brand h3 {
+        font-size: 1.2rem;
+    }
 }
 
 @media (max-width: 768px) {
@@ -3368,4 +3370,70 @@ button:disabled {
     .listing-form-actions {
         flex-direction: column;
     }
+}
+
+.user-icon {
+    background: #b00012;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.user-icon:hover {
+    background: #8f000f;
+}
+
+.signup-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.45);
+}
+
+.signup-modal {
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.signup-modal .auth-card {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    box-sizing: border-box;
+    box-shadow: none;
+    border: none;
+}
+
+.signup-close {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    z-index: 2;
+    width: auto;
+    padding: 2px 8px;
+    background: transparent;
+    color: #777;
+    border: none;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.signup-close:hover {
+    background: transparent;
+    color: #b00012;
 }

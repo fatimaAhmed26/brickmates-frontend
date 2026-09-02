@@ -52,7 +52,7 @@ const App = () => {
         <Route path='/profile/:userId' element={user ? <Profile user={user} /> : <Landing />} />
         <Route path='/profile/edit' element={user ? <EditProfile user={user} setUser={setUser} /> : <Landing />} />
         <Route path='/listings/new' element={user ? <ListingForm /> : <Landing />} />
-        <Route path='/listings' element={<Marketplace user={user} />} />
+        <Route path="/listings" element={<Marketplace setUser={setUser} user={user} />} />
         <Route path='/listings/:listingId' element={user ? <ListingDetail user={user} /> : <Landing />} />
         <Route path='/listings/:listingId/edit' element={user ? <EditListingForm /> : <Landing />} />
         <Route path='/chat' element={<Chat user={user} />} />
