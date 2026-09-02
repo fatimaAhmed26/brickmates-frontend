@@ -19,6 +19,7 @@ const VideoCall = () => {
   const [call, setCall] = useState(null);
 
   useEffect(() => {
+    let active = true;
     let videoClient;
     let videoCall;
 
@@ -36,6 +37,12 @@ const VideoCall = () => {
 
         videoCall = videoClient.call('default', callId);
         await videoCall.join({ create: true });
+
+        if (!active) {
+          await videoCall.leave().catch(() => {});
+          await videoClient.disconnectUser().catch(() => {});
+          return;
+        }
 
         videoCall.on('call.session_participant_joined', (event) => {
           toast(`${event.participant.user.name || 'Someone'} joined the call`);
@@ -62,8 +69,9 @@ const VideoCall = () => {
     setup();
 
     return () => {
+      active = false;
       videoCall?.leave().catch(() => {});
-      videoClient?.disconnectUser().catch(console.log);
+      videoClient?.disconnectUser().catch(() => {});
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [callId]);
