@@ -41,7 +41,7 @@ return (
             <header className="marketplace-header">
                 <h1>Marketplace</h1>
                 <Link to="/listings/new">
-                    <button>Create Listing</button>
+                    <button>Add</button>
                 </Link>
             </header>
 

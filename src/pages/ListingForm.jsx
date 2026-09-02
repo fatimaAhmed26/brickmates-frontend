@@ -95,12 +95,12 @@ const ListingForm = () => {
 }
 
      return (
-        <section className="card">
-            <header>
-                <h1>Create Listing</h1>
+        <section className="listing-form-card">
+            <header className="listing-form-header">
+                <h1>Add a Set</h1>
                 <p>{message}</p>
             </header>
-            <form onSubmit={handleSubmit}>
+            <form className="listing-form" onSubmit={handleSubmit}>
                 Set:
                 <input type="text" list="set-options" value={query} onChange={handleSearchChange} placeholder="e.g. Millennium Falcon"
                     required />
@@ -138,7 +138,7 @@ const ListingForm = () => {
                 <textarea name="description" onChange={handleChange} value={formData.description} />
                 Photos:
                 <input type="file" name="photos" onChange={handlePhotosChange} multiple accept="image/*" />
-                <div className="actions">
+                <div className="listing-form-actions">
                     <button type="submit" disabled={!isFormValid()}>Create Listing</button>
                     <button type="button" onClick={() => navigate('/listings')}>Cancel</button>
                 </div>
