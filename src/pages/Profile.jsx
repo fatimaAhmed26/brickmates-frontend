@@ -55,6 +55,7 @@ const Profile = ({ user }) => {
     useEffect(() => {
         const fetchBuilds = async () => {
             const allBuilds = await indexBuilds()
+
             setBuilds(allBuilds.filter((build) => build.owner && build.owner._id === userId))
         }
         fetchBuilds()
@@ -398,8 +399,15 @@ return (
                         </div>
 
                         <div className="build-info">
-                            <span>♡ {build.likes?.length || 0}</span>
-                            <span>💬 {build.comments?.length || 0}</span>
+                        <span>
+                        <HeartIcon />
+                        {build.like?.length || 0}
+                        </span>
+                        
+                        <span>
+                            <ChatBubbleOvalLeftIcon />
+                            {build.comment?.length || 0}
+                             </span>
                         </div>
                     </Link>
                 ))}

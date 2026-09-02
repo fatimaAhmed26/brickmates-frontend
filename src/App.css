@@ -3004,3 +3004,8 @@ button:disabled {
     align-items: center;
     gap: 4px;
 }
+
+.build-info svg {
+    width: 18px;
+    height: 18px;
+}
