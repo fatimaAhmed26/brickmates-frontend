@@ -55,9 +55,13 @@ const BuildDetails = ({ user }) => {
       <div className="build-details-card">
         <div className="build-details-media">
           {build.image?.url ? (
-            <img src={build.image.url} alt={build.caption} />
+            build.image.type === 'video' ? (
+              <video src={build.image.url} controls />
+            ) : (
+              <img src={build.image.url} alt={build.caption} />
+            )
           ) : (
-            <div className="build-details-media-placeholder">No image</div>
+            <div className="build-details-media-placeholder">No media</div>
           )}
         </div>
 
