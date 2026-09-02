@@ -3437,3 +3437,205 @@ button:disabled {
     background: transparent;
     color: #b00012;
 }
+
+.listing-detail-card {
+    width: 100%;
+    max-width: 850px;
+    margin: 30px auto;
+    padding: 0;
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+}
+
+.listing-detail-card header {
+    padding: 20px 24px 16px;
+}
+
+.listing-detail-card header h1 {
+    margin: 0 0 8px;
+    font-size: 1.4rem;
+    color: #222;
+}
+
+.listing-detail-card header p {
+    margin: 0;
+    color: #777;
+    font-size: 0.9rem;
+}
+
+.listing-detail-card header a {
+    color: #b00012;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.listing-detail-card .photos {
+    width: 100%;
+    background: #f7f7f7;
+}
+
+.listing-detail-card .photos img {
+    width: 100%;
+    max-height: 340px;
+    object-fit: contain;
+    display: block;
+    background: #f7f7f7;
+}
+
+.listing-detail-info {
+    padding: 20px 24px 24px;
+}
+
+.listing-detail-price {
+    margin: 0 0 24px;
+    padding-bottom: 14px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid #eee;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #b00012;
+}
+
+.listing-detail-meta {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.listing-detail-meta div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.listing-detail-meta span {
+    font-size: 0.7rem;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.listing-detail-meta strong {
+    font-size: 0.82rem;
+    color: #333;
+    text-transform: capitalize;
+}
+
+.listing-detail-description {
+    padding-top: 16px;
+    border-top: 1px solid #eee;
+}
+
+.listing-detail-description h3 {
+    margin: 0 0 8px;
+    font-size: 0.85rem;
+    color: #222;
+}
+
+.listing-detail-description p {
+    margin: 0;
+    color: #666;
+    font-size: 0.82rem;
+    line-height: 1.6;
+}
+
+.listing-detail-card .actions {
+    display: flex;
+    gap: 10px;
+    padding: 0 24px 24px;
+}
+
+.listing-detail-card .actions button,
+.listing-detail-card > a button {
+    padding: 8px 15px;
+    font-size: 0.8rem;
+}
+
+.listing-detail-card .actions button {
+    width: auto;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 9px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.listing-detail-card .actions button:first-child {
+    background: #b00012;
+    color: white;
+}
+
+.listing-detail-card .btn-danger {
+    background: #b00012;
+    color: white;
+}
+
+.listing-detail-card .btn-secondary {
+    background: #f1f1f1;
+    color: #333;
+}
+
+.listing-detail-card > a {
+    display: inline-block;
+    margin: 0 32px 30px;
+    text-decoration: none;
+}
+
+.listing-detail-card > a button {
+    width: auto;
+    padding: 11px 22px;
+    border: none;
+    border-radius: 9px;
+    background: #b00012;
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.listing-detail-card .confirm-dialog {
+    border: none;
+    border-radius: 14px;
+    padding: 26px;
+    width: 100%;
+    max-width: 360px;
+    box-sizing: border-box;
+    background: white;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.listing-detail-card .confirm-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.45);
+}
+
+@media (max-width: 650px) {
+    .listing-detail-card {
+        margin: 24px auto;
+    }
+
+    .listing-detail-card header {
+        padding: 22px 20px;
+    }
+
+    .listing-detail-info {
+        padding: 22px 20px;
+    }
+
+    .listing-detail-meta {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .listing-detail-card .actions {
+        padding: 0 20px 24px;
+    }
+
+    .listing-detail-card > a {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+}

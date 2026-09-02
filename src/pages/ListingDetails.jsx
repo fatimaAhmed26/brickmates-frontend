@@ -29,7 +29,7 @@ const openModal = () => dialogRef.current?.showModal();
     const isOwner = user && listing.owner && user._id === listing.owner._id
 
     return (
-        <section className="card">
+        <section className="listing-detail-card">
             <header>
                 <h1>{listing.setName || listing.setNum}</h1>
                 <p>Sold by{' '}
@@ -47,11 +47,33 @@ const openModal = () => dialogRef.current?.showModal();
                 </div>
             )}
 
-            <p>Set number: {listing.setNum}</p>
-            <p>Condition: {listing.condition}</p>
-            <p>Price: BHD {listing.price}</p>
-            <p>Status: {listing.status}</p>
-            {listing.description && <p>{listing.description}</p>}
+            <div className="listing-detail-info">
+    <p className="listing-detail-price">BHD {listing.price}</p>
+
+    <div className="listing-detail-meta">
+        <div>
+            <span>Set number</span>
+            <strong>{listing.setNum}</strong>
+        </div>
+
+        <div>
+            <span>Condition</span>
+            <strong>{listing.condition}</strong>
+        </div>
+
+        <div>
+            <span>Status</span>
+            <strong>{listing.status}</strong>
+        </div>
+    </div>
+
+    {listing.description && (
+        <div className="listing-detail-description">
+            <h3>Description</h3>
+            <p>{listing.description}</p>
+        </div>
+    )}
+</div>
 
             {isOwner && (
                 <div className="actions">
