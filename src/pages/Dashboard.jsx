@@ -64,7 +64,7 @@ const Dashboard = ({ user }) => {
         return builder.followers && builder.followers.includes(user?._id)
     }
 
-    const topBuilders = allUsers.filter((builder) => builder._id !== user?._id).slice(0, 3)
+    const topBuilders = allUsers.filter((builder) => builder._id !== user?._id).slice(0, 4)
 
     return (
         <section className="dashboard">

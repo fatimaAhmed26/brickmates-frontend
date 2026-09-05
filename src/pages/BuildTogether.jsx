@@ -45,12 +45,16 @@ const BuildTogether = ({ user }) => {
             }))
 
             setWaitingSets(combined)
+            console.log(waitingSets);
+            
         }
         fetchWaitingSets()
     }, [])
 
     const handleSearchChange = async (event) => {
         const value = event.target.value
+        console.log(value);
+        
         setQuery(value)
 
         const match = results.find((set) => `${set.name} (${set.setNum})` === value)
@@ -62,9 +66,12 @@ const BuildTogether = ({ user }) => {
         }
 
         const data = await search(value)
-        // console.log(data,"search");
+    //   console.log(data.results,"data");
+      
         
         setResults(data.results)
+        console.log(results, "result");
+        
     }
 
     const handleJoinQueue = async (setToJoin) => {

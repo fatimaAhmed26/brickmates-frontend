@@ -2,14 +2,16 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router'
 import { index } from '../services/listing'
 import { themes } from '../services/set'
+import SignUpForm from './SignUpForm'
 
-const Marketplace = () => {
+const Marketplace = (props) => {
     const [listings, setListings] = useState([])
     const [theme, setTheme] = useState('all')
     const [condition, setCondition] = useState('all')
     const [minPrice, setMinPrice] = useState('')
     const [maxPrice, setMaxPrice] = useState('')
     const [themeOptions, setThemeOptions] = useState([])
+    const [showSignUp, setShowSignUp] = useState(false)
 
     useEffect(() => {
         const fetchListings = async () => {
@@ -41,7 +43,7 @@ return (
             <header className="marketplace-header">
                 <h1>Marketplace</h1>
                 <Link to="/listings/new">
-                    <button>Create Listing</button>
+                    <button>Add</button>
                 </Link>
             </header>
 
@@ -76,7 +78,12 @@ return (
 
             <div className="listings-grid">
                 {filteredListings.map((listing) => (
-                    <Link to={`/listings/${listing._id}`} key={listing._id}>
+                    <Link to={props?.user ? `/listings/${listing._id}` : '#'} key={listing._id}
+                    onClick={(e) => {
+                        if (!props?.user) {
+                            e.preventDefault() 
+                            setShowSignUp(true) }
+                            }}>
                         <div className="listing-card">
                             <div className="listing-image-wrap">
                                 {listing.photos && listing.photos.length > 0 ? (
@@ -96,7 +103,23 @@ return (
                     </Link>
                 ))}
             </div>
+            {showSignUp && (
+    <div className="signup-overlay">
+        <div className="signup-modal">
+            <button
+                className="signup-close"
+                onClick={() => setShowSignUp(false)}
+            >
+                ×
+            </button>
+
+            <SignUpForm setUser={props.setUser} />
         </div>
+    </div>
+)}
+        </div>
+        
+        
     )
 }
 
