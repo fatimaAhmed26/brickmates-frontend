@@ -6,7 +6,7 @@ _A social platform and marketplace for LEGO builders and collectors — share bu
 
 ### Use the App
 
-[Deployed App Link]()
+[Deployed App Link](https://brickmates-site.netlify.app)
 
 ### BACKEND Repository
 

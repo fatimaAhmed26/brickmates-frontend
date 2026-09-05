@@ -62,7 +62,9 @@ const BuildTogether = ({ user }) => {
         }
 
         const data = await search(value)
-        setResults(data)
+        // console.log(data,"search");
+        
+        setResults(data.results)
     }
 
     const handleJoinQueue = async (setToJoin) => {
@@ -101,6 +103,7 @@ const BuildTogether = ({ user }) => {
     setSelectedSet(null)
 }
 
+console.log(results,"check")
    return (
     <section className="build-together">
         <header className="build-header">
