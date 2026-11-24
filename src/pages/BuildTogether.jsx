@@ -110,6 +110,7 @@ const BuildTogether = ({ user }) => {
     setSelectedSet(null)
 }
 
+console.log(results,"check")
    return (
     <section className="build-together">
         <header className="build-header">
