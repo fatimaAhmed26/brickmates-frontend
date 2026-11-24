@@ -1,35 +1,79 @@
-@import url('https://fonts.googleapis.com/css2?family=Cause:wght@100..900&family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Schoolbell&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap');
 
+/* =========================================================
+   Brickmates design tokens — "Baseplate"
+   Surfaces are moulded plastic: a crisp border plus a solid
+   bottom edge instead of soft drop shadows.
+   ========================================================= */
 :root {
-  font-family: "Google Sans Flex", sans-serif;
+  /* Palette */
+  --brick: #b00012;
+  --brick-deep: #8a000e;
+  --brick-tint: #fbe9ea;
+  --brick-line: #efc2c6;
+  --clay: #654b46;
+  --clay-tint: #f1ebe9;
+  --taupe: #897b75;
+  --plate: #e7e2df;
+  --plate-deep: #d6cfcb;
+  --base: #f7f8f8;
+  --ink: #1a1a1a;
+  --white: #ffffff;
+  --success: #1c7a3d;
+  --success-tint: #e2f3e8;
 
-  --color-primary: #4f46e5;
-  --color-primary-dark: #4338ca;
-  --color-primary-soft: #e0e7ff;
-  --color-success: #15803d;
-  --color-text: #1f2937;
-  --color-text-light: #6b7280;
-  --color-background: #f4f6f8;
-  --color-surface: #ffffff;
-  --color-border: #d1d5db;
-  --color-error: #dc2626;
+  /* Type */
+  --font-display: "Bricolage Grotesque", "Google Sans Flex", system-ui, sans-serif;
+  --font-body: "Google Sans Flex", system-ui, sans-serif;
+
+  --text-xs: 0.75rem;   /* 12 */
+  --text-sm: 0.875rem;  /* 14 */
+  --text-md: 1rem;      /* 16 */
+  --text-lg: 1.25rem;   /* 20 */
+  --text-xl: 1.5625rem; /* 25 */
+  --text-2xl: 2.25rem;  /* 36 */
+
+  /* Shape */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-pill: 999px;
+
+  /* Moulded edges */
+  --edge: 0 4px 0 var(--plate);
+  --edge-lift: 0 7px 0 var(--plate-deep);
+  --edge-brick: 0 4px 0 var(--brick-deep);
+
+  /* Legacy aliases still referenced in a few places */
+  --color-primary: var(--brick);
+  --color-primary-dark: var(--brick-deep);
+  --color-primary-soft: var(--brick-tint);
+  --color-text: var(--ink);
+  --color-text-light: var(--taupe);
+  --color-background: var(--base);
+  --color-surface: var(--white);
+  --color-border: var(--plate);
+  --color-error: var(--brick);
+  --color-success: var(--success);
+
+  font-family: var(--font-body);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 body {
   min-height: 100vh;
   margin: 0;
-  /* background-color: var(--color-background); */
-  background: #E0E7FF;
-  background: #f7f8f8;
-  color: var(--color-text);
-}
-
-button {
-  cursor: pointer;
+  background: var(--base);
+  color: var(--ink);
+  font-size: var(--text-md);
+  line-height: 1.5;
 }
 
 a {
@@ -44,4 +88,39 @@ img {
 
 h1, h2, h3, p {
   margin-top: 0;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-stretch: 88%;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+input, select, textarea, button {
+  font: inherit;
+}
+
+::selection {
+  background: var(--brick);
+  color: var(--white);
+}
+
+:focus-visible {
+  outline: 3px solid var(--brick);
+  outline-offset: 2px;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }

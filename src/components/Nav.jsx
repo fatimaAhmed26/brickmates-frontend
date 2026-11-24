@@ -1,5 +1,12 @@
-import { Link } from "react-router"
+import { Link, NavLink } from "react-router"
 
+const BrickMark = () => (
+    <svg className="brick-mark" viewBox="0 0 32 22" aria-hidden="true">
+        <rect x="5" y="0" width="8" height="5" rx="1.5" />
+        <rect x="19" y="0" width="8" height="5" rx="1.5" />
+        <rect x="0" y="4" width="32" height="18" rx="3" />
+    </svg>
+)
 
 const Nav = (props) => {
 
@@ -10,51 +17,37 @@ const Nav = (props) => {
 
     return (
         <nav className="navbar">
-            <Link className="nav-brand" to="/">Brickmates</Link>
+            <Link className="nav-brand" to="/">
+                <BrickMark />
+                Brickmates
+            </Link>
 
             {props.user ? (
                 <>
                     <ul className="nav-links">
-                        <li>
-                            <Link to="/">Community</Link>
-                        </li>
-                        <li>
-                            <Link to="/listings">Marketplace</Link>
-                        </li>
-                        <li>
-                            <Link to="/build-together">Build Together</Link>
-                        </li>
-                        <li>
-                            <Link to="/sets">Sets</Link>
-                        </li>
-                        <li>
-                            <Link to="/builds">Builds</Link>
-                        </li>
-                        <li><Link to={`/profile/${props.user._id}`}>Profile</Link></li>
-                        <li><Link to="/messages">Direct Messages</Link></li>
+                        <li><NavLink to="/" end>Community</NavLink></li>
+                        <li><NavLink to="/listings">Marketplace</NavLink></li>
+                        <li><NavLink to="/build-together">Build Together</NavLink></li>
+                        <li><NavLink to="/sets">Sets</NavLink></li>
+                        <li><NavLink to="/builds">Builds</NavLink></li>
+                        <li><NavLink to={`/profile/${props.user._id}`}>Profile</NavLink></li>
+                        <li><NavLink to="/messages">Messages</NavLink></li>
                     </ul>
 
                     <div className="nav-actions">
-
                         <button className="user-icon" onClick={handleSignOut}>
-                            Signout
+                            Sign out
                         </button>
                     </div>
                 </>
             ) : (
-            <ul>
-                <li>
-                    <Link to='/'>Home</Link>
-                </li>
-                <li>
-                    <Link to='/sign-up'>Sign Up</Link>
-                </li>
-                <li>
-                    <Link to='/sign-in'>Sign In</Link>
-                </li>
-            </ul>
-            ) }
-
+                <ul className="nav-links nav-links-guest">
+                    <li><NavLink to="/listings">Marketplace</NavLink></li>
+                    <li><NavLink to="/sets">Sets</NavLink></li>
+                    <li><NavLink to="/sign-in">Sign in</NavLink></li>
+                    <li><Link className="nav-cta" to="/sign-up">Sign up</Link></li>
+                </ul>
+            )}
         </nav>
     )
 }

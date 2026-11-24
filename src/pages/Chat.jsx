@@ -129,12 +129,11 @@ const Chat = (props) => {
             </section>
 
             <form className="message-form" onSubmit={handleSubmit}>
-                <button type="button" className="attachment-button">
+                <button type="button" className="attachment-button" aria-label="Add attachment">
                 +
             </button>
-                Message:
-                <input className="message-input" type="text" name='message' value={formData} onChange={handleChange} />
-                <button className="send-button" type='submit' disabled={!isConnected}>➤</button>
+                <input className="message-input" type="text" name='message' value={formData} onChange={handleChange} placeholder="Write a message" aria-label="Message" />
+                <button className="send-button" type='submit' disabled={!isConnected} aria-label="Send message">➤</button>
             </form>
         </main>
     )
